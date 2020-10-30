@@ -1,0 +1,29 @@
+PODS:
+  - AdBrixRemastered (1.6.5230)
+  - adbrixrm_flutter (1.0.0):
+    - AdBrixRemastered
+    - Flutter
+  - Flutter (1.0.0)
+
+DEPENDENCIES:
+  - adbrixrm_flutter (from `.symlinks/plugins/adbrixrm_flutter/ios`)
+  - Flutter (from `Flutter`)
+
+SPEC REPOS:
+  trunk:
+    - AdBrixRemastered
+
+EXTERNAL SOURCES:
+  adbrixrm_flutter:
+    :path: ".symlinks/plugins/adbrixrm_flutter/ios"
+  Flutter:
+    :path: Flutter
+
+SPEC CHECKSUMS:
+  AdBrixRemastered: 2f38a87bacf56bf6db6b7ccacd321a3220c39cd1
+  adbrixrm_flutter: 50d7818d1ff5dcefe8ab2044e212e6e4acbfe299
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+
+PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+
+COCOAPODS: 1.10.0
