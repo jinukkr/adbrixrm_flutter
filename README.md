@@ -1,4 +1,4 @@
-# adbrixflutter
+# adbrixrm_flutter
 
 AdBrixRM Plugin for Flutter Project
 
@@ -7,10 +7,10 @@ AdBrixRM Plugin for Flutter Project
 - Android 4.1 +
 - iOS 10 +
 
-## Current SDK version
+## Current AdBrixRM SDK version
 
-- Android :  1.1.2110
-- iOS : 1.6.5102
+- Android :  1.1.2210
+- iOS : 1.6.5230
 
 ## Install the Plugin
 
@@ -18,14 +18,14 @@ Add dependencies on pubspec.yaml
 
 ```
 dependencies:
-  adbrixflutter: ^1.0.0
+  adbrixrm_flutter: ^1.0.0
 ```
 
 ## Initialize SDK
 To initialize SDK add this api on main.dart initState().
 You can get AppKey and SecretKey from AdBrix Console. (https://console.adbrix.io)
 
-    import 'package:adbrixflutter/adbrixrm.dart
+    import 'package:adbrixrm_flutter/adbrixrm.dart
     .
     .
     .
