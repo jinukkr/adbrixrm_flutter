@@ -134,6 +134,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         Map<String, dynamic> attr = <String, dynamic>{
           'int': 2,
           'string': 'this is commerce',
+          'string2' : 'this is String2',
           'double': 25000.00,
           'long': 2222222222222,
           'bool': false

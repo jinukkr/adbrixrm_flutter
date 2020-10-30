@@ -38,42 +38,7 @@ public class AdBrixUtility {
         return attrModel
         
     }
-    
-    public static func AdBrixRmAttrModelMakeAttrModelForProduct (attr : Dictionary <String, Any>) -> AdBrixRmAttrModel {
-        
-        let attrModelForPorduct = AdBrixRmAttrModel()
-        for (key, value) in attr {
-            
-            if ((value as? String) != nil) {
-                attrModelForPorduct.setAttrDataString(key, value as! String)
-                print(value)
-                
-            } else if ((value as? Int) != nil) {
-                attrModelForPorduct.setAttrDataInt(key, value as! Int)
-                print(value)
-                
-            } else if ((value as? Int64) != nil) {
-                attrModelForPorduct.setAttrDataInt64(key, value as! Int64)
-                print(value)
-                
-            }  else if (value as? Bool) != nil {
-                attrModelForPorduct.setAttrDataBool(key, value as! Bool)
-                print(value)
-                
-                
-            } else if ((value as? Double) != nil) {
-                attrModelForPorduct.setAttrDataDouble(key, value as! Double)
-                print(value)
-                
-                
-            } else {
-                print("Attr Type not match")
-                
-            }
-        }
-        return attrModelForPorduct
-        
-    }
+
     
     public static func AdBrixRmMakeProductModel (productModel : Dictionary<String, Any>) -> AdBrixRmCommerceProductModel {
         
@@ -157,7 +122,7 @@ public class AdBrixUtility {
         
         if productAttr != nil {
             
-            productValue = adBrix.createCommerceProductDataWithAttr(productId: productId, productName: productName, price: price, quantity: quantity, discount: discount, currencyString: currencyName, category: adBrix.createCommerceProductCategoryDataByArray(categoryArray: category!), productAttrsMap: AdBrixUtility.AdBrixRmAttrModelMakeAttrModelForProduct(attr: productAttr!))
+            productValue = adBrix.createCommerceProductDataWithAttr(productId: productId, productName: productName, price: price, quantity: quantity, discount: discount, currencyString: currencyName, category: adBrix.createCommerceProductCategoryDataByArray(categoryArray: category!), productAttrsMap: AdBrixUtility.AdBrixRmAttrModelMakeAttrModel(attr: productAttr!))
             
             debugPrint("peterworks :::::: productAttr")
             
