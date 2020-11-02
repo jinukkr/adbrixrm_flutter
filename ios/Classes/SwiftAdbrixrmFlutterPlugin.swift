@@ -177,6 +177,10 @@ public class SwiftAdbrixrmFlutterPlugin: NSObject, FlutterPlugin, AdBrixRMDeepli
         
     }
     
+    func logout (_ call : FlutterMethodCall, result : @escaping FlutterResult){
+        adBrix.logout();
+    }
+    
     func commonSignUp (_ call : FlutterMethodCall, result : @escaping FlutterResult) {
         
         let args = call.arguments as? [String : Any]
@@ -655,6 +659,8 @@ public class SwiftAdbrixrmFlutterPlugin: NSObject, FlutterPlugin, AdBrixRMDeepli
         events (call, result: result)
     case "login" :
         login (call, result: result)
+    case "logout" :
+        logout(call, result: result)
     case "commonSignUp":
         commonSignUp (call, result: result)
     case "appUpdate" :

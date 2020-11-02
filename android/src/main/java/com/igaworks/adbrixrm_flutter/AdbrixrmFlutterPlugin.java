@@ -187,6 +187,10 @@ public class AdbrixrmFlutterPlugin implements FlutterPlugin, ActivityAware, Meth
       case "commerceCartView":
         commerceCartView(call, result);
         break;
+        
+      case "logout":
+        logout(call, result);
+        break;
     }
   }
 
@@ -344,6 +348,12 @@ public class AdbrixrmFlutterPlugin implements FlutterPlugin, ActivityAware, Meth
     String userId = call.argument("userId");
     AdBrixRm.login(userId);
 
+    result.success(null);
+  }
+  
+  private void logout(MethodCall call, Result result){
+    AdBrixRm.logout();
+    
     result.success(null);
   }
 

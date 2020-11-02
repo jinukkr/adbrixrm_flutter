@@ -35,7 +35,7 @@ public class AdbrixUtility {
                 attrModel.setAttrs(entry.getKey(), ((Boolean) entry.getValue()));
 
             } else {
-                Log.d("message", "error");
+                Log.d("Adbrix_QA", "Not_Matched_value");
 
             }
         }
@@ -68,7 +68,7 @@ public class AdbrixUtility {
 
             } else {
 
-                Log.d("message", "error");
+                Log.d("Adbrix_QA", "Not_Matched_value");
             }
         }
         return userProperties;
@@ -142,7 +142,4 @@ public class AdbrixUtility {
         }
         return myProductList;
     }
-
-
-
 }

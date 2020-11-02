@@ -85,7 +85,7 @@ class AdBrixRm {
   }
 
   static Future<String> get adbrixDeferredDeeplink async {
-    final String deferredDeeplink =
+    String deferredDeeplink =
     await _channel.invokeMethod('adbrixDeferredDeeplink');
 
     if (deferredDeeplink != null) {
@@ -95,7 +95,7 @@ class AdBrixRm {
   }
 
   static Future<String> get adbrixDeeplink async {
-    final String deeplink = await _channel.invokeMethod('adbrixDeeplink');
+    String deeplink = await _channel.invokeMethod('adbrixDeeplink');
 
     if (deeplink != null) {
       return deeplink;
@@ -178,6 +178,11 @@ class AdBrixRm {
     };
 
     await _channel.invokeMethod('login', params);
+  }
+
+  // Logout
+  static Future<void> logout() async{
+    await _channel.invokeMethod('logout');
   }
 
   // commonSignUp
