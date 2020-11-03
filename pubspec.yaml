@@ -2,7 +2,7 @@ name: adbrixrm_flutter
 description: Adbrix Remastered plugin for Flutter project
 version: 1.0.0
 author: peter@igaworks.com
-homepage: https://adbrix.io
+homepage: http://adbrix.io
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
