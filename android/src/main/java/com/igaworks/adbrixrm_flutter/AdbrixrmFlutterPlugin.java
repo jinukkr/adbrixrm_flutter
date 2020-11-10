@@ -36,7 +36,7 @@ public class AdbrixrmFlutterPlugin implements FlutterPlugin, ActivityAware, Meth
 
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
-    channel = new MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "adbrixrm_flutter");
+    channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "adbrixrm_flutter");
     channel.setMethodCallHandler(this);
 
     context = flutterPluginBinding.getApplicationContext();
@@ -44,7 +44,7 @@ public class AdbrixrmFlutterPlugin implements FlutterPlugin, ActivityAware, Meth
   }
 
   public static void registerWith(Registrar registrar) {
-    final MethodChannel channel = new MethodChannel(registrar.messenger(), "adbrixflutter");
+    final MethodChannel channel = new MethodChannel(registrar.messenger(), "adbrixrm_flutter");
     channel.setMethodCallHandler(new AdbrixrmFlutterPlugin());
 
   }

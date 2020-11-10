@@ -18,11 +18,12 @@ Add dependencies on pubspec.yaml
 
 ```
 dependencies:
-  adbrixrm_flutter: ^1.0.0
+  adbrixrm_flutter: ^1.0.2
 ```
 
 ## Integration Guide
 
-More infomation please see Adbrix Integration guide.
+To See More Information please see AdBrixRM Integration Guide.
 
-Guide Link : https://bit.ly/2TOED76
+English : https://bit.ly/3lgghPZ
+Korean : https://bit.ly/2TOED76

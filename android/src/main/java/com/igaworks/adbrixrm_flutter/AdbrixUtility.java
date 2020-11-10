@@ -35,7 +35,7 @@ public class AdbrixUtility {
                 attrModel.setAttrs(entry.getKey(), ((Boolean) entry.getValue()));
 
             } else {
-                Log.d("Adbrix_QA", "Not_Matched_value");
+                Log.d("Adbrix_QA", "Not_Matched_value::::::" + entry.getKey());
 
             }
         }
@@ -68,7 +68,7 @@ public class AdbrixUtility {
 
             } else {
 
-                Log.d("Adbrix_QA", "Not_Matched_value");
+                Log.d("Adbrix_QA", "Not_Matched_value:::::" + entry.getKey());
             }
         }
         return userProperties;
@@ -107,6 +107,7 @@ public class AdbrixUtility {
                     break;
 
                 case "category":
+                    @SuppressWarnings("unchecked")
                     ArrayList<String> categoryList = (ArrayList<String>) entry.getValue();
                     AdBrixRm.CommerceCategoriesModel categoriesModel = new AdBrixRm.CommerceCategoriesModel();
 
@@ -120,6 +121,7 @@ public class AdbrixUtility {
                     break;
 
                 case "productAttr":
+                    @SuppressWarnings("unchecked")
                     AdBrixRm.AttrModel productAttr = AdbrixUtility.makeAttrModel((HashMap<String, Object>) entry.getValue());
                     makeProduct.setAttrModel(productAttr);
                     break;

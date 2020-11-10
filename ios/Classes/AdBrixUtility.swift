@@ -31,7 +31,7 @@ public class AdBrixUtility {
                 attrModel.setAttrDataDouble(key, value as! Double)
                 
             } else {
-                print("Attr Type not match")
+                print("Not_Matched_Value::::::" + key)
                 
             }
         }
@@ -123,15 +123,10 @@ public class AdBrixUtility {
         if productAttr != nil {
             
             productValue = adBrix.createCommerceProductDataWithAttr(productId: productId, productName: productName, price: price, quantity: quantity, discount: discount, currencyString: currencyName, category: adBrix.createCommerceProductCategoryDataByArray(categoryArray: category!), productAttrsMap: AdBrixUtility.AdBrixRmAttrModelMakeAttrModel(attr: productAttr!))
-            
-            debugPrint("peterworks :::::: productAttr")
-            
+                        
         } else {
             
             productValue = adBrix.createCommerceProductDataWithAttr(productId: productId, productName: productName, price: price, quantity: quantity, discount: discount, currencyString: currencyName, category: adBrix.createCommerceProductCategoryDataByArray(categoryArray: category!), productAttrsMap: nil)
-            
-            
-            debugPrint("peterworks :::::: + productModel")
             
         }
         
