@@ -110,12 +110,15 @@ public class SwiftAdbrixrmFlutterPlugin: NSObject, FlutterPlugin, AdBrixRMDeepli
         }
     }
     
-    func deeplinkEvent (_ call : FlutterMethodCall, result : @escaping FlutterResult) {
-        
-        let arg = call.arguments as! String
-        adBrix.deepLinkOpen(urlStr: arg)
-        
+    func startGettingIDFA (_ call: FlutterMethodCall, result : @escaping FlutterResult) {
+        adBrix.startGettingIDFA();
     }
+    
+    func stopGettingIDFA (_ call: FlutterMethodCall, result : @escaping FlutterResult) {
+        adBrix.stopGettingIDFA();
+    }
+    
+
     
     func gdprForgetMe (_ call : FlutterMethodCall, result : @escaping FlutterResult ) {
         
@@ -645,8 +648,6 @@ public class SwiftAdbrixrmFlutterPlugin: NSObject, FlutterPlugin, AdBrixRMDeepli
         setEventUploadCountInterval (call, result: result)
     case"setEventUploadTimeInterval" :
         setEventUploadTimeInterval (call, result: result)
-    case "deeplinkEvent" :
-        deeplinkEvent (call, result: result)
     case "gdprForgetMe" :
         gdprForgetMe (call,result: result)
     case "setAge":
@@ -707,11 +708,12 @@ public class SwiftAdbrixrmFlutterPlugin: NSObject, FlutterPlugin, AdBrixRMDeepli
         adbrixDeferredDeeplink(result: result)
     case "adbrixDeeplink" :
         adbrixDeeplink(result: result)
+    case "startGettingIDFA" :
+        startGettingIDFA(call, result: result)
+    case "stopGettingIDFA" :
+        stopGettingIDFA(call, result: result)
     default:
         print("AdBrixRm Flutter plugin")
     }
-    
-    
-    
   }
 }

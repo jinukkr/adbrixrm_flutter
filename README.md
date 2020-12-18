@@ -25,5 +25,5 @@ dependencies:
 
 To See More Information please see AdBrixRM Integration Guide.
 
-English : https://bit.ly/3lgghPZ
-Korean : https://bit.ly/2TOED76
+- English : https://bit.ly/3lgghPZ
+- Korean : https://bit.ly/2TOED76

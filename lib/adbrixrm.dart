@@ -74,24 +74,22 @@ enum AdBrixInviteChannel {
 class AdBrixRm {
   static const MethodChannel _channel = const MethodChannel('adbrixrm_flutter');
 
-  static Future<void> sdkInit(
-      {@required String appKey, @required String secretKey}) async {
+  static void sdkInit({@required String appKey, @required String secretKey}) {
     Map<String, String> param = <String, String>{
       'AppKey': appKey,
       'SecretKey': secretKey
     };
 
-    await _channel.invokeMethod('sdkInit', param);
+    _channel.invokeMethod('sdkInit', param);
   }
 
   static Future<String> get adbrixDeferredDeeplink async {
     String deferredDeeplink =
-    await _channel.invokeMethod('adbrixDeferredDeeplink');
+        await _channel.invokeMethod('adbrixDeferredDeeplink');
 
     if (deferredDeeplink != null) {
       return deferredDeeplink;
     }
-
   }
 
   static Future<String> get adbrixDeeplink async {
@@ -100,96 +98,94 @@ class AdBrixRm {
     if (deeplink != null) {
       return deeplink;
     }
+  }
 
+  static void startGettingIDFA() {
+    _channel.invokeMethod('startGettingIDFA');
+  }
+
+  static void stopGettingIDFA() {
+    _channel.invokeMethod('stopGettingIDFA');
   }
 
   // Additional SDK setup
 
-  static Future<void> setLogLevel({@required AdBrixLogLevel logLevel}) async {
-    await _channel.invokeMethod(
-        'setLogLevel', logLevel.toString().split('.').last);
+  static void setLogLevel({@required AdBrixLogLevel logLevel}) {
+    _channel.invokeMethod('setLogLevel', logLevel.toString().split('.').last);
 
     print(logLevel.toString().split('.').last);
   }
 
-  static Future<void> setEventUploadCountInterval(
-      {@required AdBrixEventUploadCountInterval interval}) async {
-    await _channel.invokeMethod(
+  static void setEventUploadCountInterval(
+      {@required AdBrixEventUploadCountInterval interval}) {
+    _channel.invokeMethod(
         'setEventUploadCountInterval', interval.toString().split('.').last);
   }
 
-  static Future<void> setEventUploadTimeInterval(
-      {@required AdBrixEventUploadTimeInterval interval}) async {
-    await _channel.invokeMethod(
+  static void setEventUploadTimeInterval(
+      {@required AdBrixEventUploadTimeInterval interval}) {
+    _channel.invokeMethod(
         'setEventUploadTimeInterval', interval.toString().split('.').last);
-  }
-
-  //DeeplinkOpen
-
-  static Future<void> deeplinkEvent({@required String deeplink}) async {
-    await _channel.invokeMethod('deeplinkEvent', deeplink);
   }
 
   // GDPR Setup
 
-  static Future<void> gdprForgetMe() async {
-    await _channel.invokeMethod('gdprForgetMe');
+  static void gdprForgetMe() {
+    _channel.invokeMethod('gdprForgetMe');
   }
 
   // UserProperties Setup
 
-  static Future<void> setAge({@required int age}) async {
-    await _channel.invokeMethod('setAge', age);
+  static void setAge({@required int age}) {
+    _channel.invokeMethod('setAge', age);
   }
 
-  static Future<void> setGender({@required AdBrixGender gender}) async {
-    await _channel.invokeMethod('setGender', gender.toString().split('.').last);
+  static void setGender({@required AdBrixGender gender}) {
+    _channel.invokeMethod('setGender', gender.toString().split('.').last);
   }
 
-  static Future<void> setUserProperties(
-      {@required Map<String, dynamic> properties}) async {
-    await _channel.invokeMethod('setUserProperties', properties);
+  static void setUserProperties({@required Map<String, dynamic> properties}) {
+    _channel.invokeMethod('setUserProperties', properties);
   }
 
   // Custom Event
 
-  static Future<void> events(
+  static void events(
       {@required String eventName, Map<String, dynamic> attr}) async {
     if (attr != null) {
       Map<String, dynamic> params = <String, dynamic>{
         'eventName': eventName,
         'attr': attr
       };
-      await _channel.invokeMethod('events', params);
+      _channel.invokeMethod('events', params);
     } else {
       Map<String, dynamic> params = <String, dynamic>{
         'eventName': eventName,
       };
 
-      await _channel.invokeMethod('events', params);
+      _channel.invokeMethod('events', params);
     }
   }
 
   // Login
 
-  static Future<void> login({@required String userId}) async {
+  static void login({@required String userId}) {
     Map<String, dynamic> params = <String, dynamic>{
       'userId': userId,
     };
 
-    await _channel.invokeMethod('login', params);
+    _channel.invokeMethod('login', params);
   }
 
   // Logout
-  static Future<void> logout() async{
-    await _channel.invokeMethod('logout');
+  static void logout() {
+    _channel.invokeMethod('logout');
   }
 
   // commonSignUp
 
-  static Future<void> commonSignUp(
-      {@required AdBrixSignUpChannel channel,
-        Map<String, dynamic> attr}) async {
+  static void commonSignUp(
+      {@required AdBrixSignUpChannel channel, Map<String, dynamic> attr}) {
     int channelValue;
     String channelString = channel.toString().split('.').last;
 
@@ -256,22 +252,22 @@ class AdBrixRm {
         'attr': attr
       };
 
-      await _channel.invokeMethod('commonSignUp', params);
+      _channel.invokeMethod('commonSignUp', params);
     } else {
       Map<String, dynamic> params = <String, dynamic>{
         'channel': channelValue,
       };
 
-      await _channel.invokeMethod('commonSignUp', params);
+      _channel.invokeMethod('commonSignUp', params);
     }
   }
 
   //AppUpdate
 
-  static Future<void> commonAppUpdate(
+  static void commonAppUpdate(
       {@required String preVersion,
-        @required String currVersion,
-        Map<String, dynamic> attr}) async {
+      @required String currVersion,
+      Map<String, dynamic> attr}) {
     if (attr != null) {
       Map<String, dynamic> params = <String, dynamic>{
         'preVersion': preVersion,
@@ -279,22 +275,22 @@ class AdBrixRm {
         'attr': attr
       };
 
-      await _channel.invokeMethod('appUpdate', params);
+      _channel.invokeMethod('appUpdate', params);
     } else {
       Map<String, dynamic> params = <String, dynamic>{
         'preVersion': preVersion,
         'currVersion': currVersion,
       };
 
-      await _channel.invokeMethod('appUpdate', params);
+      _channel.invokeMethod('appUpdate', params);
     }
   }
 
   // UserInvite
 
-  static Future<void> commonUserInvite(
+  static void commonUserInvite(
       {@required AdBrixInviteChannel inviteChannel,
-        Map<String, dynamic> attr}) async {
+      Map<String, dynamic> attr}) {
     int channelValue;
     String channelString = inviteChannel.toString().split('.').last;
 
@@ -356,156 +352,156 @@ class AdBrixRm {
         'attr': attr
       };
 
-      await _channel.invokeMethod('userInvite', params);
+      _channel.invokeMethod('userInvite', params);
     } else {
       Map<String, dynamic> params = <String, dynamic>{
         'inviteChannel': channelValue
       };
 
-      await _channel.invokeMethod('userInvite', params);
+      _channel.invokeMethod('userInvite', params);
     }
   }
 
   //useCredit
 
-  static Future<void> commonUseCredit({Map<String, dynamic> attr}) async {
+  static void commonUseCredit({Map<String, dynamic> attr}) {
     if (attr != null) {
       Map<String, dynamic> params = <String, dynamic>{'attr': attr};
 
-      await _channel.invokeMethod('useCredit', params);
+      _channel.invokeMethod('useCredit', params);
     } else {
-      await _channel.invokeMethod('useCredit');
+      _channel.invokeMethod('useCredit');
     }
   }
 
   //gameTutorialComplete
 
-  static Future<void> gameTutorialComplete(
-      {@required bool isSkip, Map<String, dynamic> attr}) async {
+  static void gameTutorialComplete(
+      {@required bool isSkip, Map<String, dynamic> attr}) {
     if (attr != null) {
       Map<String, dynamic> param = <String, dynamic>{
         'isSkip': isSkip,
         'attr': attr
       };
 
-      await _channel.invokeMethod('gameTutorialComplete', param);
+      _channel.invokeMethod('gameTutorialComplete', param);
     } else {
       Map<String, dynamic> param = <String, dynamic>{'isSkip': isSkip};
 
-      await _channel.invokeMethod('gameTutorialComplete', param);
+      _channel.invokeMethod('gameTutorialComplete', param);
     }
   }
 
   //gameCharacterCreated
 
-  static Future<void> gameCharacterCreated({Map<String, dynamic> attr}) async {
+  static void gameCharacterCreated({Map<String, dynamic> attr}) {
     if (attr != null) {
       Map<String, dynamic> params = <String, dynamic>{
         'attr': attr,
       };
 
-      await _channel.invokeMethod('gameCharacterCreated', params);
+      _channel.invokeMethod('gameCharacterCreated', params);
     } else {
-      await _channel.invokeMethod('gameCharacterCreated');
+      _channel.invokeMethod('gameCharacterCreated');
     }
   }
 
   //gameStageCleared
 
-  static Future<void> gameStageCleared({
+  static void gameStageCleared({
     @required String stageName,
     Map<String, dynamic> attr,
-  }) async {
+  }) {
     if (attr != null) {
       Map<String, dynamic> params = <String, dynamic>{
         'stageName': stageName,
         'attr': attr,
       };
 
-      await _channel.invokeMethod('gameStageCleared', params);
+      _channel.invokeMethod('gameStageCleared', params);
     } else {
       Map<String, dynamic> params = <String, dynamic>{
         'stageName': stageName,
       };
 
-      await _channel.invokeMethod('gameStageCleared', params);
+      _channel.invokeMethod('gameStageCleared', params);
     }
   }
 
   //levelAchieved
 
-  static Future<void> gameLevelAchieved(
-      {@required int levelAchieved, Map<String, dynamic> attr}) async {
+  static void gameLevelAchieved(
+      {@required int levelAchieved, Map<String, dynamic> attr}) {
     if (attr != null) {
       Map<String, dynamic> params = <String, dynamic>{
         'levelAchieved': levelAchieved,
         'attr': attr,
       };
 
-      await _channel.invokeMethod('gameLevelAchieved', params);
+      _channel.invokeMethod('gameLevelAchieved', params);
     } else {
       Map<String, dynamic> params = <String, dynamic>{
         'levelAchieved': levelAchieved
       };
 
-      await _channel.invokeMethod('gameLevelAchieved', params);
+      _channel.invokeMethod('gameLevelAchieved', params);
     }
   }
 
 //commerceViewHome
 
-  static Future<void> commerceViewHome() async {
-    await _channel.invokeMethod('commerceViewHome');
+  static void commerceViewHome() {
+    _channel.invokeMethod('commerceViewHome');
   }
 
 // commerceProductView
 
-  static Future<void> commerceProductView(
+  static void commerceProductView(
       {@required AdBrixRmCommerceProductModel productModel,
-        Map<String, dynamic> attr}) async {
+      Map<String, dynamic> attr}) {
     if (attr != null) {
       Map<String, dynamic> params = <String, dynamic>{
         'productModel': productModel.getProductModel(),
         'attr': attr
       };
 
-      await _channel.invokeMethod('commerceProductView', params);
+      _channel.invokeMethod('commerceProductView', params);
     } else {
       Map<String, dynamic> params = <String, dynamic>{
         'productModel': productModel.getProductModel()
       };
 
-      await _channel.invokeMethod('commerceProductView', params);
+      _channel.invokeMethod('commerceProductView', params);
     }
   }
 
   // commerceAddToWishList
 
-  static Future<void> commerceAddToWishList(
+  static void commerceAddToWishList(
       {@required AdBrixRmCommerceProductModel productModel,
-        Map<String, dynamic> attr}) async {
+      Map<String, dynamic> attr}) {
     if (attr != null) {
       Map<String, dynamic> params = <String, dynamic>{
         'productModel': productModel.getProductModel(),
         'attr': attr
       };
 
-      await _channel.invokeMethod('commerceAddToWishList', params);
+      _channel.invokeMethod('commerceAddToWishList', params);
     } else {
       Map<String, dynamic> params = <String, dynamic>{
         'productModel': productModel.getProductModel()
       };
 
-      await _channel.invokeMethod('commerceAddToWishList', params);
+      _channel.invokeMethod('commerceAddToWishList', params);
     }
   }
 
 // commerceShare
 
-  static Future<void> commerceShare(
+  static void commerceShare(
       {@required AdBrixSharingChannel sharingChannel,
-        @required AdBrixRmCommerceProductModel productModel,
-        Map<String, dynamic> attr}) async {
+      @required AdBrixRmCommerceProductModel productModel,
+      Map<String, dynamic> attr}) {
     if (attr != null) {
       Map<String, dynamic> params = <String, dynamic>{
         'sharingChannel': sharingChannel.toString().split('.').last,
@@ -513,40 +509,39 @@ class AdBrixRm {
         'attr': attr
       };
 
-      await _channel.invokeMethod('commerceShare', params);
+      _channel.invokeMethod('commerceShare', params);
     } else {
       Map<String, dynamic> params = <String, dynamic>{
         'sharingChannel': sharingChannel.toString().split('.').last,
         'productModel': productModel.getProductModel()
       };
 
-      await _channel.invokeMethod('commerceShare', params);
+      _channel.invokeMethod('commerceShare', params);
     }
   }
 
   // paymentInfoAdd
 
-  static Future<void> commercePaymentInfoAdd(
-      {Map<String, dynamic> attr}) async {
+  static void commercePaymentInfoAdd({Map<String, dynamic> attr}) {
     if (attr != null) {
       Map<String, dynamic> params = <String, dynamic>{'attr': attr};
 
-      await _channel.invokeMethod('commercePaymentInfoAdd', params);
+      _channel.invokeMethod('commercePaymentInfoAdd', params);
     } else {
-      await _channel.invokeMethod('commercePaymentInfoAdd');
+      _channel.invokeMethod('commercePaymentInfoAdd');
     }
   }
 
   //commonPurchase
 
-  static Future<void> commonPurchase(
+  static void commonPurchase(
       {@required String orderId,
-        @required List<AdBrixRmCommerceProductModel> productList,
-        @required double orderSale,
-        @required double discount,
-        @required double deliveryCharge,
-        @required AdBrixPaymentMethod paymentMethod,
-        Map<String, dynamic> attr}) async {
+      @required List<AdBrixRmCommerceProductModel> productList,
+      @required double orderSale,
+      @required double discount,
+      @required double deliveryCharge,
+      @required AdBrixPaymentMethod paymentMethod,
+      Map<String, dynamic> attr}) {
     List<Map<String, dynamic>> getProductList = List<Map<String, dynamic>>();
 
     for (int i = 0; i < productList.length; i++) {
@@ -558,34 +553,34 @@ class AdBrixRm {
       Map<String, dynamic> params = <String, dynamic>{
         'orderId': orderId,
         'productList': getProductList,
-        'orderSale' : orderSale,
+        'orderSale': orderSale,
         'discount': discount,
         'deliveryCharge': deliveryCharge,
         'paymentMethod': paymentMethod.toString().split('.').last,
         'attr': attr,
       };
 
-      await _channel.invokeMethod('commonPurchase', params);
+      _channel.invokeMethod('commonPurchase', params);
     } else {
       Map<String, dynamic> params = <String, dynamic>{
         'orderId': orderId,
         'productList': getProductList,
-        'orderSale' : orderSale,
+        'orderSale': orderSale,
         'discount': discount,
         'deliveryCharge': deliveryCharge,
         'paymentMethod': paymentMethod.toString().split('.').last
       };
 
-      await _channel.invokeMethod('commonPurchase', params);
+      _channel.invokeMethod('commonPurchase', params);
     }
   }
 
   // commerceCategoryView
 
-  static Future<void> commerceCategoryView(
+  static void commerceCategoryView(
       {@required AdBrixRmCommerceCategoryModel categoryModel,
-        @required List<AdBrixRmCommerceProductModel> productList,
-        Map<String, dynamic> attr}) async {
+      @required List<AdBrixRmCommerceProductModel> productList,
+      Map<String, dynamic> attr}) {
     List<Map<String, dynamic>> getProductList = List<Map<String, dynamic>>();
 
     for (int i = 0; i < productList.length; i++) {
@@ -600,22 +595,22 @@ class AdBrixRm {
         'attr': attr,
       };
 
-      await _channel.invokeMethod('commerceCategoryView', params);
+      _channel.invokeMethod('commerceCategoryView', params);
     } else {
       Map<String, dynamic> params = <String, dynamic>{
         'categoryModel': categoryModel.getCategoryList(),
         'productList': getProductList
       };
 
-      await _channel.invokeMethod('commerceCategoryView', params);
+      _channel.invokeMethod('commerceCategoryView', params);
     }
   }
 
   // commerceAddToCart
 
-  static Future<void> commerceAddToCart(
+  static void commerceAddToCart(
       {@required List<AdBrixRmCommerceProductModel> productList,
-        Map<String, dynamic> attr}) async {
+      Map<String, dynamic> attr}) {
     List<Map<String, dynamic>> getProductList = List<Map<String, dynamic>>();
 
     for (int i = 0; i < productList.length; i++) {
@@ -628,24 +623,24 @@ class AdBrixRm {
         'attr': attr,
       };
 
-      await _channel.invokeMethod('commerceAddToCart', params);
+      _channel.invokeMethod('commerceAddToCart', params);
     } else {
       Map<String, dynamic> params = <String, dynamic>{
         'productList': getProductList,
       };
 
-      await _channel.invokeMethod('commerceAddToCart', params);
+      _channel.invokeMethod('commerceAddToCart', params);
     }
   }
 
   // commerceReviewOrder
 
-  static Future<void> commerceReviewOrder(
+  static void commerceReviewOrder(
       {@required String orderId,
-        @required List<AdBrixRmCommerceProductModel> productList,
-        @required double discount,
-        @required double deliveryCharge,
-        Map<String, dynamic> attr}) async {
+      @required List<AdBrixRmCommerceProductModel> productList,
+      @required double discount,
+      @required double deliveryCharge,
+      Map<String, dynamic> attr}) {
     List<Map<String, dynamic>> getProductList = List<Map<String, dynamic>>();
 
     for (int i = 0; i < productList.length; i++) {
@@ -662,7 +657,7 @@ class AdBrixRm {
         'attr': attr
       };
 
-      await _channel.invokeMethod('commerceReviewOrder', params);
+      _channel.invokeMethod('commerceReviewOrder', params);
     } else {
       Map<String, dynamic> params = <String, dynamic>{
         'orderId': orderId,
@@ -671,17 +666,17 @@ class AdBrixRm {
         'deliveryCharge': deliveryCharge,
       };
 
-      await _channel.invokeMethod('commerceReviewOrder', params);
+      _channel.invokeMethod('commerceReviewOrder', params);
     }
   }
 
   //commerceRefund
 
-  static Future<void> commerceRefund(
+  static void commerceRefund(
       {@required String orderId,
-        @required List<AdBrixRmCommerceProductModel> productList,
-        @required double penaltyCharge,
-        Map<String, dynamic> attr}) async {
+      @required List<AdBrixRmCommerceProductModel> productList,
+      @required double penaltyCharge,
+      Map<String, dynamic> attr}) {
     List<Map<String, dynamic>> getProductList = List<Map<String, dynamic>>();
 
     for (int i = 0; i < productList.length; i++) {
@@ -697,7 +692,7 @@ class AdBrixRm {
         'attr': attr,
       };
 
-      await _channel.invokeMethod('commerceRefund', params);
+      _channel.invokeMethod('commerceRefund', params);
     } else {
       Map<String, dynamic> params = <String, dynamic>{
         'orderId': orderId,
@@ -705,16 +700,16 @@ class AdBrixRm {
         'penaltyCharge': penaltyCharge
       };
 
-      await _channel.invokeMethod('commerceRefund', params);
+      _channel.invokeMethod('commerceRefund', params);
     }
   }
 
   // commerceSearch
 
-  static Future<void> commerceSearch(
+  static void commerceSearch(
       {@required String keyword,
-        @required List<AdBrixRmCommerceProductModel> productList,
-        Map<String, dynamic> attr}) async {
+      @required List<AdBrixRmCommerceProductModel> productList,
+      Map<String, dynamic> attr}) {
     List<Map<String, dynamic>> getProductList = List<Map<String, dynamic>>();
 
     for (int i = 0; i < productList.length; i++) {
@@ -729,22 +724,22 @@ class AdBrixRm {
         'attr': attr
       };
 
-      await _channel.invokeMethod('commerceSearch', params);
+      _channel.invokeMethod('commerceSearch', params);
     } else {
       Map<String, dynamic> params = <String, dynamic>{
         'keyword': keyword,
         'productList': getProductList
       };
 
-      await _channel.invokeMethod('commerceSearch', params);
+      _channel.invokeMethod('commerceSearch', params);
     }
   }
 
   //commerceListView
 
-  static Future<void> commerceListView(
+  static void commerceListView(
       {@required List<AdBrixRmCommerceProductModel> productList,
-        Map<String, dynamic> attr}) async {
+      Map<String, dynamic> attr}) {
     List<Map<String, dynamic>> getProductList = List<Map<String, dynamic>>();
 
     for (int i = 0; i < productList.length; i++) {
@@ -758,21 +753,21 @@ class AdBrixRm {
         'attr': attr
       };
 
-      await _channel.invokeMethod('commerceListView', params);
+      _channel.invokeMethod('commerceListView', params);
     } else {
       Map<String, dynamic> params = <String, dynamic>{
         'productList': getProductList
       };
 
-      await _channel.invokeMethod('commerceListView', params);
+      _channel.invokeMethod('commerceListView', params);
     }
   }
 
   // commerceCartView
 
-  static Future<void> commerceCartView(
+  static void commerceCartView(
       {@required List<AdBrixRmCommerceProductModel> productList,
-        Map<String, dynamic> attr}) async {
+      Map<String, dynamic> attr}) {
     List<Map<String, dynamic>> getProductList = List<Map<String, dynamic>>();
 
     for (int i = 0; i < productList.length; i++) {
@@ -786,13 +781,13 @@ class AdBrixRm {
         'attr': attr
       };
 
-      await _channel.invokeMethod('commerceCartView', params);
+      _channel.invokeMethod('commerceCartView', params);
     } else {
       Map<String, dynamic> params = <String, dynamic>{
         'productList': getProductList
       };
 
-      await _channel.invokeMethod('commerceCartView', params);
+      _channel.invokeMethod('commerceCartView', params);
     }
   }
 
@@ -816,10 +811,10 @@ class AdBrixRmCommerceCategoryModel {
 
   AdBrixRmCommerceCategoryModel(
       {String category1,
-        String category2,
-        String category3,
-        String category4,
-        String category5}) {
+      String category2,
+      String category3,
+      String category4,
+      String category5}) {
     this.category1 = category1;
     this.category2 = category2;
     this.category3 = category3;
@@ -859,10 +854,10 @@ class AdBrixRmCommerceCategoryModel {
 
   static AdBrixRmCommerceCategoryModel create(
       {@required String category1,
-        String category2,
-        String category3,
-        String category4,
-        String category5}) {
+      String category2,
+      String category3,
+      String category4,
+      String category5}) {
     return new AdBrixRmCommerceCategoryModel(
         category1: category1,
         category2: category2,
@@ -886,13 +881,13 @@ class AdBrixRmCommerceProductModel {
 
   AdBrixRmCommerceProductModel(
       {String productId,
-        String productName,
-        double price,
-        double discount,
-        int quantity,
-        AdBrixCurrency currency,
-        AdBrixRmCommerceCategoryModel category,
-        Map<String, dynamic> productAttr}) {
+      String productName,
+      double price,
+      double discount,
+      int quantity,
+      AdBrixCurrency currency,
+      AdBrixRmCommerceCategoryModel category,
+      Map<String, dynamic> productAttr}) {
     this.productId = productId;
     this.productName = productName;
     this.price = price;
@@ -940,13 +935,13 @@ class AdBrixRmCommerceProductModel {
 
   static AdBrixRmCommerceProductModel create(
       {@required String productId,
-        @required String productName,
-        @required double price,
-        @required double discount,
-        @required int quantity,
-        @required AdBrixCurrency currency,
-        @required AdBrixRmCommerceCategoryModel category,
-        Map<String, dynamic> productAttr}) {
+      @required String productName,
+      @required double price,
+      @required double discount,
+      @required int quantity,
+      @required AdBrixCurrency currency,
+      @required AdBrixRmCommerceCategoryModel category,
+      Map<String, dynamic> productAttr}) {
     return new AdBrixRmCommerceProductModel(
         productId: productId,
         productName: productName,
@@ -958,4 +953,3 @@ class AdBrixRmCommerceProductModel {
         productAttr: productAttr);
   }
 }
-

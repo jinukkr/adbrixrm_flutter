@@ -1,3 +1,8 @@
+## 1.1.0
+
+* iOS : Stop / Start Getting IDFA API available.
+* Delete Future API that won't needed.
+
 ## 1.0.2
 
 * Deprecated API changed.
