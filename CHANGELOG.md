@@ -1,3 +1,8 @@
+## 1.2.0
+
+* Null safety available.
+* Min version of Dart upgrade 2.7.0 to 2.12.0 for support Null safety.
+
 ## 1.1.0
 
 * iOS : Stop / Start Getting IDFA API available.

@@ -182,8 +182,7 @@ class _commerceViewState extends State<commerceView> {
         category:
         AdBrixRmCommerceCategoryModel.create(category1: '프로덕트34'));
 
-    List<AdBrixRmCommerceProductModel> productlist =
-    List<AdBrixRmCommerceProductModel>();
+    List<AdBrixRmCommerceProductModel> productlist =[];
     productlist.add(adBrixRmCommerceProductModel1);
     productlist.add(adBrixRmCommerceProductModel2);
     productlist.add(adBrixRmCommerceProductModel3);

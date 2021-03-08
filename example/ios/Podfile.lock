@@ -1,6 +1,6 @@
 PODS:
-  - AdBrixRemastered (1.6.5330)
-  - adbrixrm_flutter (1.1.0):
+  - AdBrixRemastered (1.6.5331)
+  - adbrixrm_flutter (1.2.0):
     - AdBrixRemastered
     - Flutter
   - Flutter (1.0.0)
@@ -20,10 +20,10 @@ EXTERNAL SOURCES:
     :path: Flutter
 
 SPEC CHECKSUMS:
-  AdBrixRemastered: 5fb1c9879f45d688cb27e7124971bdd3da8cb0c7
-  adbrixrm_flutter: 1e930a3e29364d1462042813f1925134b1720a32
-  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  AdBrixRemastered: 35d6a30c1d0bde7057da25e92731490a1701299c
+  adbrixrm_flutter: 814da8c72a181b183b6be7401000dad508b17823
+  Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
 
 PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.10.1

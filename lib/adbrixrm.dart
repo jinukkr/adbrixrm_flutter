@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 enum AdBrixLogLevel { NONE, VERBOSE, DEBUG, INFO, WARNING, ERROR }
@@ -74,7 +73,7 @@ enum AdBrixInviteChannel {
 class AdBrixRm {
   static const MethodChannel _channel = const MethodChannel('adbrixrm_flutter');
 
-  static void sdkInit({@required String appKey, @required String secretKey}) {
+  static void sdkInit({required String appKey, required String secretKey}) {
     Map<String, String> param = <String, String>{
       'AppKey': appKey,
       'SecretKey': secretKey
@@ -83,7 +82,7 @@ class AdBrixRm {
     _channel.invokeMethod('sdkInit', param);
   }
 
-  static Future<String> get adbrixDeferredDeeplink async {
+  static Future<String?> get adbrixDeferredDeeplink async {
     String deferredDeeplink =
         await _channel.invokeMethod('adbrixDeferredDeeplink');
 
@@ -92,7 +91,7 @@ class AdBrixRm {
     }
   }
 
-  static Future<String> get adbrixDeeplink async {
+  static Future<String?> get adbrixDeeplink async {
     String deeplink = await _channel.invokeMethod('adbrixDeeplink');
 
     if (deeplink != null) {
@@ -110,20 +109,20 @@ class AdBrixRm {
 
   // Additional SDK setup
 
-  static void setLogLevel({@required AdBrixLogLevel logLevel}) {
+  static void setLogLevel({required AdBrixLogLevel logLevel}) {
     _channel.invokeMethod('setLogLevel', logLevel.toString().split('.').last);
 
     print(logLevel.toString().split('.').last);
   }
 
   static void setEventUploadCountInterval(
-      {@required AdBrixEventUploadCountInterval interval}) {
+      {required AdBrixEventUploadCountInterval interval}) {
     _channel.invokeMethod(
         'setEventUploadCountInterval', interval.toString().split('.').last);
   }
 
   static void setEventUploadTimeInterval(
-      {@required AdBrixEventUploadTimeInterval interval}) {
+      {required AdBrixEventUploadTimeInterval interval}) {
     _channel.invokeMethod(
         'setEventUploadTimeInterval', interval.toString().split('.').last);
   }
@@ -136,22 +135,22 @@ class AdBrixRm {
 
   // UserProperties Setup
 
-  static void setAge({@required int age}) {
+  static void setAge({required int age}) {
     _channel.invokeMethod('setAge', age);
   }
 
-  static void setGender({@required AdBrixGender gender}) {
+  static void setGender({required AdBrixGender gender}) {
     _channel.invokeMethod('setGender', gender.toString().split('.').last);
   }
 
-  static void setUserProperties({@required Map<String, dynamic> properties}) {
+  static void setUserProperties({required Map<String, dynamic> properties}) {
     _channel.invokeMethod('setUserProperties', properties);
   }
 
   // Custom Event
 
   static void events(
-      {@required String eventName, Map<String, dynamic> attr}) async {
+      {required String eventName, Map<String, dynamic>? attr}) async {
     if (attr != null) {
       Map<String, dynamic> params = <String, dynamic>{
         'eventName': eventName,
@@ -169,7 +168,7 @@ class AdBrixRm {
 
   // Login
 
-  static void login({@required String userId}) {
+  static void login({required String userId}) {
     Map<String, dynamic> params = <String, dynamic>{
       'userId': userId,
     };
@@ -185,8 +184,8 @@ class AdBrixRm {
   // commonSignUp
 
   static void commonSignUp(
-      {@required AdBrixSignUpChannel channel, Map<String, dynamic> attr}) {
-    int channelValue;
+      {required AdBrixSignUpChannel channel, Map<String, dynamic>? attr}) {
+    int channelValue = 0;
     String channelString = channel.toString().split('.').last;
 
     switch (channelString) {
@@ -265,9 +264,9 @@ class AdBrixRm {
   //AppUpdate
 
   static void commonAppUpdate(
-      {@required String preVersion,
-      @required String currVersion,
-      Map<String, dynamic> attr}) {
+      {required String preVersion,
+      required String currVersion,
+      Map<String, dynamic>? attr}) {
     if (attr != null) {
       Map<String, dynamic> params = <String, dynamic>{
         'preVersion': preVersion,
@@ -289,9 +288,9 @@ class AdBrixRm {
   // UserInvite
 
   static void commonUserInvite(
-      {@required AdBrixInviteChannel inviteChannel,
-      Map<String, dynamic> attr}) {
-    int channelValue;
+      {required AdBrixInviteChannel inviteChannel,
+      Map<String, dynamic>? attr}) {
+    int channelValue = 0;
     String channelString = inviteChannel.toString().split('.').last;
 
     switch (channelString) {
@@ -364,7 +363,7 @@ class AdBrixRm {
 
   //useCredit
 
-  static void commonUseCredit({Map<String, dynamic> attr}) {
+  static void commonUseCredit({Map<String, dynamic>? attr}) {
     if (attr != null) {
       Map<String, dynamic> params = <String, dynamic>{'attr': attr};
 
@@ -377,7 +376,7 @@ class AdBrixRm {
   //gameTutorialComplete
 
   static void gameTutorialComplete(
-      {@required bool isSkip, Map<String, dynamic> attr}) {
+      {required bool isSkip, Map<String, dynamic>? attr}) {
     if (attr != null) {
       Map<String, dynamic> param = <String, dynamic>{
         'isSkip': isSkip,
@@ -394,7 +393,7 @@ class AdBrixRm {
 
   //gameCharacterCreated
 
-  static void gameCharacterCreated({Map<String, dynamic> attr}) {
+  static void gameCharacterCreated({Map<String, dynamic>? attr}) {
     if (attr != null) {
       Map<String, dynamic> params = <String, dynamic>{
         'attr': attr,
@@ -409,8 +408,8 @@ class AdBrixRm {
   //gameStageCleared
 
   static void gameStageCleared({
-    @required String stageName,
-    Map<String, dynamic> attr,
+    required String stageName,
+    Map<String, dynamic>? attr,
   }) {
     if (attr != null) {
       Map<String, dynamic> params = <String, dynamic>{
@@ -431,7 +430,7 @@ class AdBrixRm {
   //levelAchieved
 
   static void gameLevelAchieved(
-      {@required int levelAchieved, Map<String, dynamic> attr}) {
+      {required int levelAchieved, Map<String, dynamic>? attr}) {
     if (attr != null) {
       Map<String, dynamic> params = <String, dynamic>{
         'levelAchieved': levelAchieved,
@@ -457,8 +456,8 @@ class AdBrixRm {
 // commerceProductView
 
   static void commerceProductView(
-      {@required AdBrixRmCommerceProductModel productModel,
-      Map<String, dynamic> attr}) {
+      {required AdBrixRmCommerceProductModel productModel,
+      Map<String, dynamic>? attr}) {
     if (attr != null) {
       Map<String, dynamic> params = <String, dynamic>{
         'productModel': productModel.getProductModel(),
@@ -478,8 +477,8 @@ class AdBrixRm {
   // commerceAddToWishList
 
   static void commerceAddToWishList(
-      {@required AdBrixRmCommerceProductModel productModel,
-      Map<String, dynamic> attr}) {
+      {required AdBrixRmCommerceProductModel productModel,
+      Map<String, dynamic>? attr}) {
     if (attr != null) {
       Map<String, dynamic> params = <String, dynamic>{
         'productModel': productModel.getProductModel(),
@@ -499,9 +498,9 @@ class AdBrixRm {
 // commerceShare
 
   static void commerceShare(
-      {@required AdBrixSharingChannel sharingChannel,
-      @required AdBrixRmCommerceProductModel productModel,
-      Map<String, dynamic> attr}) {
+      {required AdBrixSharingChannel sharingChannel,
+      required AdBrixRmCommerceProductModel productModel,
+      Map<String, dynamic>? attr}) {
     if (attr != null) {
       Map<String, dynamic> params = <String, dynamic>{
         'sharingChannel': sharingChannel.toString().split('.').last,
@@ -522,7 +521,7 @@ class AdBrixRm {
 
   // paymentInfoAdd
 
-  static void commercePaymentInfoAdd({Map<String, dynamic> attr}) {
+  static void commercePaymentInfoAdd({Map<String, dynamic>? attr}) {
     if (attr != null) {
       Map<String, dynamic> params = <String, dynamic>{'attr': attr};
 
@@ -535,14 +534,14 @@ class AdBrixRm {
   //commonPurchase
 
   static void commonPurchase(
-      {@required String orderId,
-      @required List<AdBrixRmCommerceProductModel> productList,
-      @required double orderSale,
-      @required double discount,
-      @required double deliveryCharge,
-      @required AdBrixPaymentMethod paymentMethod,
-      Map<String, dynamic> attr}) {
-    List<Map<String, dynamic>> getProductList = List<Map<String, dynamic>>();
+      {required String orderId,
+      required List<AdBrixRmCommerceProductModel> productList,
+      required double orderSale,
+      required double discount,
+      required double deliveryCharge,
+      required AdBrixPaymentMethod paymentMethod,
+      Map<String, dynamic>? attr}) {
+    List<Map<String, dynamic>> getProductList = [];
 
     for (int i = 0; i < productList.length; i++) {
       Map<String, dynamic> product = mappingProductModel(productList[i]);
@@ -578,10 +577,10 @@ class AdBrixRm {
   // commerceCategoryView
 
   static void commerceCategoryView(
-      {@required AdBrixRmCommerceCategoryModel categoryModel,
-      @required List<AdBrixRmCommerceProductModel> productList,
-      Map<String, dynamic> attr}) {
-    List<Map<String, dynamic>> getProductList = List<Map<String, dynamic>>();
+      {required AdBrixRmCommerceCategoryModel categoryModel,
+      required List<AdBrixRmCommerceProductModel> productList,
+      Map<String, dynamic>? attr}) {
+    List<Map<String, dynamic>> getProductList = [];
 
     for (int i = 0; i < productList.length; i++) {
       Map<String, dynamic> product = mappingProductModel(productList[i]);
@@ -609,9 +608,9 @@ class AdBrixRm {
   // commerceAddToCart
 
   static void commerceAddToCart(
-      {@required List<AdBrixRmCommerceProductModel> productList,
-      Map<String, dynamic> attr}) {
-    List<Map<String, dynamic>> getProductList = List<Map<String, dynamic>>();
+      {required List<AdBrixRmCommerceProductModel> productList,
+      Map<String, dynamic>? attr}) {
+    List<Map<String, dynamic>> getProductList = [];
 
     for (int i = 0; i < productList.length; i++) {
       Map<String, dynamic> product = mappingProductModel(productList[i]);
@@ -636,12 +635,12 @@ class AdBrixRm {
   // commerceReviewOrder
 
   static void commerceReviewOrder(
-      {@required String orderId,
-      @required List<AdBrixRmCommerceProductModel> productList,
-      @required double discount,
-      @required double deliveryCharge,
-      Map<String, dynamic> attr}) {
-    List<Map<String, dynamic>> getProductList = List<Map<String, dynamic>>();
+      {required String orderId,
+      required List<AdBrixRmCommerceProductModel> productList,
+      required double discount,
+      required double deliveryCharge,
+      Map<String, dynamic>? attr}) {
+    List<Map<String, dynamic>> getProductList = [];
 
     for (int i = 0; i < productList.length; i++) {
       Map<String, dynamic> product = mappingProductModel(productList[i]);
@@ -673,11 +672,11 @@ class AdBrixRm {
   //commerceRefund
 
   static void commerceRefund(
-      {@required String orderId,
-      @required List<AdBrixRmCommerceProductModel> productList,
-      @required double penaltyCharge,
-      Map<String, dynamic> attr}) {
-    List<Map<String, dynamic>> getProductList = List<Map<String, dynamic>>();
+      {required String orderId,
+      required List<AdBrixRmCommerceProductModel> productList,
+      required double penaltyCharge,
+      Map<String, dynamic>? attr}) {
+    List<Map<String, dynamic>> getProductList = [];
 
     for (int i = 0; i < productList.length; i++) {
       Map<String, dynamic> product = mappingProductModel(productList[i]);
@@ -707,10 +706,10 @@ class AdBrixRm {
   // commerceSearch
 
   static void commerceSearch(
-      {@required String keyword,
-      @required List<AdBrixRmCommerceProductModel> productList,
-      Map<String, dynamic> attr}) {
-    List<Map<String, dynamic>> getProductList = List<Map<String, dynamic>>();
+      {required String keyword,
+      required List<AdBrixRmCommerceProductModel> productList,
+      Map<String, dynamic>? attr}) {
+    List<Map<String, dynamic>> getProductList = [];
 
     for (int i = 0; i < productList.length; i++) {
       Map<String, dynamic> product = mappingProductModel(productList[i]);
@@ -738,9 +737,9 @@ class AdBrixRm {
   //commerceListView
 
   static void commerceListView(
-      {@required List<AdBrixRmCommerceProductModel> productList,
-      Map<String, dynamic> attr}) {
-    List<Map<String, dynamic>> getProductList = List<Map<String, dynamic>>();
+      {required List<AdBrixRmCommerceProductModel> productList,
+      Map<String, dynamic>? attr}) {
+    List<Map<String, dynamic>> getProductList = [];
 
     for (int i = 0; i < productList.length; i++) {
       Map<String, dynamic> product = mappingProductModel(productList[i]);
@@ -766,9 +765,9 @@ class AdBrixRm {
   // commerceCartView
 
   static void commerceCartView(
-      {@required List<AdBrixRmCommerceProductModel> productList,
-      Map<String, dynamic> attr}) {
-    List<Map<String, dynamic>> getProductList = List<Map<String, dynamic>>();
+      {required List<AdBrixRmCommerceProductModel> productList,
+      Map<String, dynamic>? attr}) {
+    List<Map<String, dynamic>> getProductList = [];
 
     for (int i = 0; i < productList.length; i++) {
       Map<String, dynamic> product = mappingProductModel(productList[i]);
@@ -802,44 +801,50 @@ class AdBrixRm {
 }
 
 class AdBrixRmCommerceCategoryModel {
-  String category1;
-  String category2;
-  String category3;
-  String category4;
-  String category5;
-  List<String> _getList;
+  String category1 = "";
+  String category2 = "";
+  String category3 = "";
+  String category4 = "";
+  String category5 = "";
+  List<String> _getList = [];
 
-  AdBrixRmCommerceCategoryModel(
-      {String category1,
-      String category2,
-      String category3,
-      String category4,
-      String category5}) {
-    this.category1 = category1;
-    this.category2 = category2;
-    this.category3 = category3;
-    this.category4 = category4;
-    this.category5 = category5;
-
-    if ((category1 != null) &&
-        (category2 != null) &&
+  AdBrixRmCommerceCategoryModel(String category1, String? category2,
+      String? category3, String? category4, String? category5) {
+    if ((category2 != null) &&
         (category3 != null) &&
         (category4 != null) &&
         (category5 != null)) {
+      this.category1 = category1;
+      this.category2 = category2;
+      this.category3 = category3;
+      this.category4 = category4;
+      this.category5 = category5;
+
       this.setCategoryList(
           [category1, category2, category3, category4, category5]);
-    } else if ((category1 != null) &&
-        (category2 != null) &&
+    } else if ((category2 != null) &&
         (category3 != null) &&
         (category4 != null)) {
+      this.category1 = category1;
+      this.category2 = category2;
+      this.category3 = category3;
+      this.category4 = category4;
+
       this.setCategoryList([category1, category2, category3, category4]);
-    } else if ((category1 != null) &&
-        (category2 != null) &&
-        (category3 != null)) {
+    } else if ((category2 != null) && (category3 != null)) {
+      this.category1 = category1;
+      this.category2 = category2;
+      this.category3 = category3;
+
       this.setCategoryList([category1, category2, category3]);
-    } else if ((category1 != null) && (category2 != null)) {
+    } else if ((category2 != null)) {
+      this.category1 = category1;
+      this.category2 = category2;
+
       this.setCategoryList([category1, category2]);
     } else {
+      this.category1 = category1;
+
       this.setCategoryList([category1]);
     }
   }
@@ -853,51 +858,47 @@ class AdBrixRmCommerceCategoryModel {
   }
 
   static AdBrixRmCommerceCategoryModel create(
-      {@required String category1,
-      String category2,
-      String category3,
-      String category4,
-      String category5}) {
+      {required String category1,
+      String? category2,
+      String? category3,
+      String? category4,
+      String? category5}) {
     return new AdBrixRmCommerceCategoryModel(
-        category1: category1,
-        category2: category2,
-        category3: category3,
-        category4: category4,
-        category5: category5);
+        category1, category2, category3, category4, category5);
   }
 }
 
 class AdBrixRmCommerceProductModel {
-  String productId;
-  String productName;
-  double price;
-  double discount;
-  int quantity;
-  String currency;
-  List<String> category;
-  Map<String, dynamic> productAttr;
+  String productId = "";
+  String productName = "";
+  double price = 0.0;
+  double discount = 0.0;
+  int quantity = 0;
+  String currency = "";
+  List<String> category = [];
+  Map<String, dynamic> productAttr = {};
 
-  Map<String, dynamic> _productParameter;
+  Map<String, dynamic> _productParameter = {};
 
   AdBrixRmCommerceProductModel(
-      {String productId,
-      String productName,
-      double price,
-      double discount,
-      int quantity,
-      AdBrixCurrency currency,
-      AdBrixRmCommerceCategoryModel category,
-      Map<String, dynamic> productAttr}) {
-    this.productId = productId;
-    this.productName = productName;
-    this.price = price;
-    this.discount = discount;
-    this.quantity = quantity;
-    this.currency = currency.toString().split('.').last;
-    this.category = category.getCategoryList();
-    this.productAttr = productAttr;
-
+      {required String productId,
+      required String productName,
+      required double price,
+      required double discount,
+      required int quantity,
+      required AdBrixCurrency currency,
+      required AdBrixRmCommerceCategoryModel category,
+      Map<String, dynamic>? productAttr}) {
     if (productAttr != null) {
+      this.productId = productId;
+      this.productName = productName;
+      this.price = price;
+      this.discount = discount;
+      this.quantity = quantity;
+      this.currency = currency.toString().split('.').last;
+      this.category = category.getCategoryList();
+      this.productAttr = productAttr;
+
       Map<String, dynamic> setProduct = <String, dynamic>{
         'productId': productId,
         'productName': productName,
@@ -911,6 +912,14 @@ class AdBrixRmCommerceProductModel {
 
       this.setProductModel(setProduct);
     } else {
+      this.productId = productId;
+      this.productName = productName;
+      this.price = price;
+      this.discount = discount;
+      this.quantity = quantity;
+      this.currency = currency.toString().split('.').last;
+      this.category = category.getCategoryList();
+
       Map<String, dynamic> setProduct = <String, dynamic>{
         'productId': productId,
         'productName': productName,
@@ -934,14 +943,14 @@ class AdBrixRmCommerceProductModel {
   }
 
   static AdBrixRmCommerceProductModel create(
-      {@required String productId,
-      @required String productName,
-      @required double price,
-      @required double discount,
-      @required int quantity,
-      @required AdBrixCurrency currency,
-      @required AdBrixRmCommerceCategoryModel category,
-      Map<String, dynamic> productAttr}) {
+      {required String productId,
+      required String productName,
+      required double price,
+      required double discount,
+      required int quantity,
+      required AdBrixCurrency currency,
+      required AdBrixRmCommerceCategoryModel category,
+      Map<String, dynamic>? productAttr}) {
     return new AdBrixRmCommerceProductModel(
         productId: productId,
         productName: productName,

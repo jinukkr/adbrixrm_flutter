@@ -42,13 +42,7 @@ public class AdbrixrmFlutterPlugin implements FlutterPlugin, ActivityAware, Meth
     context = flutterPluginBinding.getApplicationContext();
 
   }
-
-  public static void registerWith(Registrar registrar) {
-    final MethodChannel channel = new MethodChannel(registrar.messenger(), "adbrixrm_flutter");
-    channel.setMethodCallHandler(new AdbrixrmFlutterPlugin());
-
-  }
-
+  
   @Override
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
 
