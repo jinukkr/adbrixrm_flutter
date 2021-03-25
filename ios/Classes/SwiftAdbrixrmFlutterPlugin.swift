@@ -34,7 +34,18 @@ public class SwiftAdbrixrmFlutterPlugin: NSObject, FlutterPlugin, AdBrixRMDeepli
         let args = call.arguments as? [String : Any]
         let appKey = args?["AppKey"] as! String
         let secretKey = args?["SecretKey"] as! String
-        adBrix.initAdBrix(appKey: appKey, secretKey: secretKey)
+        let delayTime = args?["DelayTime"] as! Int?
+        
+        if delayTime != nil {
+            
+            adBrix.initAdBrixWithDelayTime(appKey: appKey, secretKey: secretKey, delaySecondTime: delayTime!)
+            
+        } else {
+         
+            adBrix.initAdBrix(appKey: appKey, secretKey: secretKey)
+
+        }
+        
         adBrix.delegateDeferredDeeplink = self
         adBrix.delegateDeeplink = self
     }

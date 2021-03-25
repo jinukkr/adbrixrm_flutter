@@ -16,16 +16,20 @@ public class AdBrixUtility {
         for (key, value) in attr {
             
             if ((value as? String) != nil) {
-                attrModel.setAttrDataString(key, value as! String)
+                
+                if (value as! String == "true"){
+                    attrModel.setAttrDataBool(key, true)
+                } else if (value as! String == "false") {
+                    attrModel.setAttrDataBool(key, false)
+                } else {
+                    attrModel.setAttrDataString(key, value as! String)
+                }
                 
             } else if ((value as? Int) != nil) {
                 attrModel.setAttrDataInt(key, value as! Int)
                 
-            }  else if ((value as? Int64) != nil) {
+            } else if ((value as? Int64) != nil) {
                 attrModel.setAttrDataInt64(key, value as! Int64)
-                
-            } else if (value as? Bool) != nil {
-                attrModel.setAttrDataBool(key, value as! Bool)
                 
             } else if ((value as? Double) != nil) {
                 attrModel.setAttrDataDouble(key, value as! Double)

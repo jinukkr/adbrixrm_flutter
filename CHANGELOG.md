@@ -1,3 +1,8 @@
+## 1.2.1
+
+* (iOS Only) Fixed the bug on iOS bool issue.
+* (iOS Only) Add delay time parameter for Sdkinit API on iOS
+
 ## 1.2.0
 
 * Null safety available.

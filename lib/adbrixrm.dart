@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/services.dart';
 
@@ -73,12 +74,23 @@ enum AdBrixInviteChannel {
 class AdBrixRm {
   static const MethodChannel _channel = const MethodChannel('adbrixrm_flutter');
 
-  static void sdkInit({required String appKey, required String secretKey}) {
-    Map<String, String> param = <String, String>{
-      'AppKey': appKey,
-      'SecretKey': secretKey
-    };
+  static void sdkInit(
+      {required String appKey, required String secretKey, int? delayTime}) {
+    Map<String, dynamic> param = {};
 
+    if (Platform.isIOS) {
+      if (delayTime != null) {
+        param = {
+          'AppKey': appKey,
+          'SecretKey': secretKey,
+          'DelayTime': delayTime
+        };
+      } else {
+        param = {'AppKey': appKey, 'SecretKey': secretKey};
+      }
+    } else {
+      param = {'AppKey': appKey, 'SecretKey': secretKey};
+    }
     _channel.invokeMethod('sdkInit', param);
   }
 
@@ -152,6 +164,8 @@ class AdBrixRm {
   static void events(
       {required String eventName, Map<String, dynamic>? attr}) async {
     if (attr != null) {
+      _attrBoolChanger(attr);
+
       Map<String, dynamic> params = <String, dynamic>{
         'eventName': eventName,
         'attr': attr
@@ -246,6 +260,8 @@ class AdBrixRm {
     }
 
     if (attr != null) {
+      _attrBoolChanger(attr);
+
       Map<String, dynamic> params = <String, dynamic>{
         'channel': channelValue,
         'attr': attr
@@ -268,6 +284,8 @@ class AdBrixRm {
       required String currVersion,
       Map<String, dynamic>? attr}) {
     if (attr != null) {
+      _attrBoolChanger(attr);
+
       Map<String, dynamic> params = <String, dynamic>{
         'preVersion': preVersion,
         'currVersion': currVersion,
@@ -346,6 +364,8 @@ class AdBrixRm {
     }
 
     if (attr != null) {
+      _attrBoolChanger(attr);
+
       Map<String, dynamic> params = <String, dynamic>{
         'inviteChannel': channelValue,
         'attr': attr
@@ -365,6 +385,8 @@ class AdBrixRm {
 
   static void commonUseCredit({Map<String, dynamic>? attr}) {
     if (attr != null) {
+      _attrBoolChanger(attr);
+
       Map<String, dynamic> params = <String, dynamic>{'attr': attr};
 
       _channel.invokeMethod('useCredit', params);
@@ -395,6 +417,8 @@ class AdBrixRm {
 
   static void gameCharacterCreated({Map<String, dynamic>? attr}) {
     if (attr != null) {
+      _attrBoolChanger(attr);
+
       Map<String, dynamic> params = <String, dynamic>{
         'attr': attr,
       };
@@ -412,6 +436,8 @@ class AdBrixRm {
     Map<String, dynamic>? attr,
   }) {
     if (attr != null) {
+      _attrBoolChanger(attr);
+
       Map<String, dynamic> params = <String, dynamic>{
         'stageName': stageName,
         'attr': attr,
@@ -432,6 +458,8 @@ class AdBrixRm {
   static void gameLevelAchieved(
       {required int levelAchieved, Map<String, dynamic>? attr}) {
     if (attr != null) {
+      _attrBoolChanger(attr);
+
       Map<String, dynamic> params = <String, dynamic>{
         'levelAchieved': levelAchieved,
         'attr': attr,
@@ -459,6 +487,8 @@ class AdBrixRm {
       {required AdBrixRmCommerceProductModel productModel,
       Map<String, dynamic>? attr}) {
     if (attr != null) {
+      _attrBoolChanger(attr);
+
       Map<String, dynamic> params = <String, dynamic>{
         'productModel': productModel.getProductModel(),
         'attr': attr
@@ -480,6 +510,8 @@ class AdBrixRm {
       {required AdBrixRmCommerceProductModel productModel,
       Map<String, dynamic>? attr}) {
     if (attr != null) {
+      _attrBoolChanger(attr);
+
       Map<String, dynamic> params = <String, dynamic>{
         'productModel': productModel.getProductModel(),
         'attr': attr
@@ -502,6 +534,8 @@ class AdBrixRm {
       required AdBrixRmCommerceProductModel productModel,
       Map<String, dynamic>? attr}) {
     if (attr != null) {
+      _attrBoolChanger(attr);
+
       Map<String, dynamic> params = <String, dynamic>{
         'sharingChannel': sharingChannel.toString().split('.').last,
         'productModel': productModel.getProductModel(),
@@ -523,6 +557,8 @@ class AdBrixRm {
 
   static void commercePaymentInfoAdd({Map<String, dynamic>? attr}) {
     if (attr != null) {
+      _attrBoolChanger(attr);
+
       Map<String, dynamic> params = <String, dynamic>{'attr': attr};
 
       _channel.invokeMethod('commercePaymentInfoAdd', params);
@@ -549,6 +585,8 @@ class AdBrixRm {
     }
 
     if (attr != null) {
+      _attrBoolChanger(attr);
+
       Map<String, dynamic> params = <String, dynamic>{
         'orderId': orderId,
         'productList': getProductList,
@@ -588,6 +626,8 @@ class AdBrixRm {
     }
 
     if (attr != null) {
+      _attrBoolChanger(attr);
+
       Map<String, dynamic> params = <String, dynamic>{
         'categoryModel': categoryModel.getCategoryList(),
         'productList': getProductList,
@@ -617,6 +657,8 @@ class AdBrixRm {
       getProductList.add(product);
     }
     if (attr != null) {
+      _attrBoolChanger(attr);
+
       Map<String, dynamic> params = <String, dynamic>{
         'productList': getProductList,
         'attr': attr,
@@ -648,6 +690,8 @@ class AdBrixRm {
     }
 
     if (attr != null) {
+      _attrBoolChanger(attr);
+
       Map<String, dynamic> params = <String, dynamic>{
         'orderId': orderId,
         'productList': getProductList,
@@ -684,6 +728,8 @@ class AdBrixRm {
     }
 
     if (attr != null) {
+      _attrBoolChanger(attr);
+
       Map<String, dynamic> params = <String, dynamic>{
         'orderId': orderId,
         'productList': getProductList,
@@ -717,6 +763,8 @@ class AdBrixRm {
     }
 
     if (attr != null) {
+      _attrBoolChanger(attr);
+
       Map<String, dynamic> params = <String, dynamic>{
         'keyword': keyword,
         'productList': getProductList,
@@ -747,6 +795,8 @@ class AdBrixRm {
     }
 
     if (attr != null) {
+      _attrBoolChanger(attr);
+
       Map<String, dynamic> params = <String, dynamic>{
         'productList': getProductList,
         'attr': attr
@@ -775,6 +825,8 @@ class AdBrixRm {
     }
 
     if (attr != null) {
+      _attrBoolChanger(attr);
+
       Map<String, dynamic> params = <String, dynamic>{
         'productList': getProductList,
         'attr': attr
@@ -797,6 +849,17 @@ class AdBrixRm {
     Map<String, dynamic> dic = item.getProductModel();
 
     return dic;
+  }
+
+  static void _attrBoolChanger(Map<String, dynamic> attr) {
+    if (Platform.isIOS) {
+      attr.entries.forEach((e) {
+        if (e.value.runtimeType == bool) {
+          String boolValueString = e.value.toString();
+          attr.update(e.key, (value) => boolValueString);
+        }
+      });
+    }
   }
 }
 
@@ -899,6 +962,8 @@ class AdBrixRmCommerceProductModel {
       this.category = category.getCategoryList();
       this.productAttr = productAttr;
 
+      _attrBoolChanger(productAttr);
+
       Map<String, dynamic> setProduct = <String, dynamic>{
         'productId': productId,
         'productName': productName,
@@ -960,5 +1025,16 @@ class AdBrixRmCommerceProductModel {
         currency: currency,
         category: category,
         productAttr: productAttr);
+  }
+
+  static void _attrBoolChanger(Map<String, dynamic> attr) {
+    if (Platform.isIOS) {
+      attr.entries.forEach((e) {
+        if (e.value.runtimeType == bool) {
+          String boolValueString = e.value.toString();
+          attr.update(e.key, (value) => boolValueString);
+        }
+      });
+    }
   }
 }

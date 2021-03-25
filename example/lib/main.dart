@@ -30,19 +30,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
 
-    TargetPlatform defaultTargetPlatform;
-
-    // set IDFA
-    if (defaultTargetPlatform == TargetPlatform.iOS) {
-      if (_idfaAuthorize = false) {
-        AdBrixRm.stopGettingIDFA();
-      } else {
-        AdBrixRm.startGettingIDFA();
-      }
-    }
+    AdBrixRm.startGettingIDFA();
 
     AdBrixRm.sdkInit(
-        appKey: 'G2Iz74fLkUOcZPZTrZQnQw', secretKey: 'ZP1RO2EDY02kpifcIOlzGQ');
+        appKey: 'G2Iz74fLkUOcZPZTrZQnQw', secretKey: 'ZP1RO2EDY02kpifcIOlzGQ', delayTime: 3);
     AdBrixRm.setEventUploadCountInterval(
         interval: AdBrixEventUploadCountInterval.MIN);
     AdBrixRm.setEventUploadTimeInterval(
