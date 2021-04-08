@@ -1,3 +1,7 @@
+## 1.2.2
+* (Android) AdBrixRm V2 SDK Updated.
+* (Android) compileSdkVersion upgrade 29 -> 30
+
 ## 1.2.1
 
 * (iOS Only) Fixed the bug on iOS bool issue.

@@ -1,5 +1,5 @@
 group 'com.igaworks.adbrixrm_flutter'
-version '1.2.1'
+version '1.2.2'
 
 buildscript {
     repositories {
@@ -17,7 +17,7 @@ rootProject.allprojects {
         google()
         jcenter()
         maven {
-            url 'https://dl.bintray.com/igaworks/AdbrixRmSDK'
+            url 'https://dl.bintray.com/igaworks-inc/IGAWORKS-AOS-SDK'
         }
         gradle.projectsEvaluated {
             tasks.withType(JavaCompile) {
@@ -30,11 +30,11 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 dependencies {
-    api 'com.igaworks.adbrix:abx-common-rm:+'
+    api 'io.adbrix:remaster:+'
 }
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
 
     defaultConfig {
         minSdkVersion 16

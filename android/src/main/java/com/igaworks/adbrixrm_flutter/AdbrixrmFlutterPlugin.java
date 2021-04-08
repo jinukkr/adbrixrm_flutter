@@ -3,13 +3,15 @@ package com.igaworks.adbrixrm_flutter;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
-import com.igaworks.v2.abxExtensionApi.AbxCommerce;
-import com.igaworks.v2.abxExtensionApi.AbxCommon;
-import com.igaworks.v2.abxExtensionApi.AbxGame;
+import com.igaworks.v2.core.AbxCommerce;
+import com.igaworks.v2.core.AbxCommon;
+import com.igaworks.v2.core.AbxGame;
 import com.igaworks.v2.core.AdBrixRm;
 import com.igaworks.v2.core.application.AbxActivityHelper;
 
@@ -32,6 +34,7 @@ public class AdbrixrmFlutterPlugin implements FlutterPlugin, ActivityAware, Meth
   private Context context;
   private Activity activity;
   private MethodChannel channel;
+  Intent intent;
 
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
@@ -60,11 +63,7 @@ public class AdbrixrmFlutterPlugin implements FlutterPlugin, ActivityAware, Meth
       case "adbrixDeeplink" :
         adbrixDeeplink(result);
         break;
-
-      case "setLogLevel":
-        setLogLevel(call, result);
-        break;
-
+        
       case "setEventUploadCountInterval":
         setEventUploadCountInterval(call, result);
         break;
@@ -182,7 +181,7 @@ public class AdbrixrmFlutterPlugin implements FlutterPlugin, ActivityAware, Meth
         break;
         
       case "logout":
-        logout(call, result);
+        logout(result);
         break;
     }
   }
@@ -192,12 +191,11 @@ public class AdbrixrmFlutterPlugin implements FlutterPlugin, ActivityAware, Meth
     String AppKey = call.argument("AppKey");
     String SecretKey = call.argument("SecretKey");
     AbxActivityHelper.initializeSdk(context, AppKey, SecretKey);
-    AbxActivityHelper.onResume(activity);
+    AdBrixRm.onResume(activity);
     registerLifeCycle();
     AdBrixRm.setDeferredDeeplinkListener(this);
     AdBrixRm.setDeeplinkListener(this);
     AdBrixRm.deeplinkEvent(activity);
-
 
     result.success(null);
   }
@@ -205,44 +203,46 @@ public class AdbrixrmFlutterPlugin implements FlutterPlugin, ActivityAware, Meth
   public void registerLifeCycle(){
     activity.getApplication().registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
       @Override
-      public void onActivityCreated(Activity activity, Bundle bundle) {
+      public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
 
       }
 
       @Override
-      public void onActivityStarted(Activity activity) {
+      public void onActivityStarted(@NonNull Activity activity) {
 
       }
 
       @Override
-      public void onActivityResumed(Activity activity) {
+      public void onActivityResumed(@NonNull Activity activity) {
 
-        AbxActivityHelper.onResume(activity);
+        AdBrixRm.onResume(activity);
         AdBrixRm.deeplinkEvent(activity);
 
-      }
-
-      @Override
-      public void onActivityPaused(Activity activity) {
-
-        AbxActivityHelper.onPause(activity);
 
       }
 
       @Override
-      public void onActivityStopped(Activity activity) {
+      public void onActivityPaused(@NonNull Activity activity) {
+        AdBrixRm.onPause();
+
 
       }
 
       @Override
-      public void onActivitySaveInstanceState(Activity activity, Bundle bundle) {
+      public void onActivityStopped(@NonNull Activity activity) {
 
       }
 
       @Override
-      public void onActivityDestroyed(Activity activity) {
+      public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState) {
 
       }
+
+      @Override
+      public void onActivityDestroyed(@NonNull Activity activity) {
+
+      }
+
     });
 
   }
@@ -277,14 +277,7 @@ public class AdbrixrmFlutterPlugin implements FlutterPlugin, ActivityAware, Meth
 
     result.success(null);
   }
-
-  private void setLogLevel(MethodCall call, Result result) {
-
-    String logLevel = call.arguments();
-    AdBrixRm.setLogLevel(AdBrixRm.AdBrixLogLevel.valueOf(logLevel));
-
-    result.success(null);
-  }
+  
 
   private void gdprForgetMe(Result result) {
 
@@ -344,7 +337,7 @@ public class AdbrixrmFlutterPlugin implements FlutterPlugin, ActivityAware, Meth
     result.success(null);
   }
   
-  private void logout(MethodCall call, Result result){
+  private void logout(Result result){
     AdBrixRm.logout();
     
     result.success(null);
@@ -811,7 +804,7 @@ public class AdbrixrmFlutterPlugin implements FlutterPlugin, ActivityAware, Meth
   }
 
   @Override
-  public void onReceivedDeeplink(String deeplink) {
+  public void onReceiveDeeplink(String deeplink) {
 
     if (deeplink != null) {
       myDeeplink = deeplink;
@@ -846,5 +839,5 @@ public class AdbrixrmFlutterPlugin implements FlutterPlugin, ActivityAware, Meth
   public void onDetachedFromActivity() {
 
   }
-
+  
 }

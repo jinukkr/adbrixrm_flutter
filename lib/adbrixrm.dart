@@ -98,17 +98,14 @@ class AdBrixRm {
     String deferredDeeplink =
         await _channel.invokeMethod('adbrixDeferredDeeplink');
 
-    if (deferredDeeplink != null) {
-      return deferredDeeplink;
-    }
+    return deferredDeeplink;
+
   }
 
   static Future<String?> get adbrixDeeplink async {
     String deeplink = await _channel.invokeMethod('adbrixDeeplink');
 
-    if (deeplink != null) {
-      return deeplink;
-    }
+    return deeplink;
   }
 
   static void startGettingIDFA() {
