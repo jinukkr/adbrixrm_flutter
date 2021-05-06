@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'adbrixrm_flutter'
-  s.version          = '1.2.2'
+  s.version          = '1.2.3'
   s.summary          = 'Adbrix Remastered plugin for Flutter project'
   s.description      = <<-DESC
 Adbrix Remastered plugin for Flutter project

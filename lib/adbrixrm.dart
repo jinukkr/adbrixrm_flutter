@@ -3,14 +3,6 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 
-enum AdBrixLogLevel { NONE, VERBOSE, DEBUG, INFO, WARNING, ERROR }
-
-enum AdBrixEventUploadCountInterval { MIN, NORMAL, MAX }
-
-enum AdBrixEventUploadTimeInterval { MIN, NORMAL, MAX }
-
-enum AdBrixGender { FEMALE, MALE, UNKNOWN }
-
 enum AdBrixCurrency {
   KR_KRW,
   US_USD,
@@ -28,35 +20,11 @@ enum AdBrixCurrency {
   MY_MYR //Malaysia
 }
 
-enum AdBrixPaymentMethod { CreditCard, BankTransfer, MobilePayment, ETC }
+enum AdBrixEventUploadCountInterval { MIN, NORMAL, MAX }
 
-enum AdBrixSharingChannel {
-  FACEBOOK,
-  KAKAOTALK,
-  KAKAOSTORY,
-  LINE,
-  WHATSAPP,
-  QQ,
-  WECHAT,
-  SMS,
-  EMAIL,
-  COPYURL,
-  ETC
-}
+enum AdBrixEventUploadTimeInterval { MIN, NORMAL, MAX }
 
-enum AdBrixSignUpChannel {
-  Kakao,
-  Naver,
-  Line,
-  Google,
-  Facebook,
-  Twitter,
-  WhatsApp,
-  QQ,
-  WeChat,
-  UserId,
-  ETC
-}
+enum AdBrixGender { FEMALE, MALE, UNKNOWN }
 
 enum AdBrixInviteChannel {
   Kakao,
@@ -71,36 +39,12 @@ enum AdBrixInviteChannel {
   ETC
 }
 
+enum AdBrixLogLevel { NONE, VERBOSE, DEBUG, INFO, WARNING, ERROR }
+
+enum AdBrixPaymentMethod { CreditCard, BankTransfer, MobilePayment, ETC }
+
 class AdBrixRm {
   static const MethodChannel _channel = const MethodChannel('adbrixrm_flutter');
-
-  static void sdkInit(
-      {required String appKey, required String secretKey, int? delayTime}) {
-    Map<String, dynamic> param = {};
-
-    if (Platform.isIOS) {
-      if (delayTime != null) {
-        param = {
-          'AppKey': appKey,
-          'SecretKey': secretKey,
-          'DelayTime': delayTime
-        };
-      } else {
-        param = {'AppKey': appKey, 'SecretKey': secretKey};
-      }
-    } else {
-      param = {'AppKey': appKey, 'SecretKey': secretKey};
-    }
-    _channel.invokeMethod('sdkInit', param);
-  }
-
-  static Future<String?> get adbrixDeferredDeeplink async {
-    String deferredDeeplink =
-        await _channel.invokeMethod('adbrixDeferredDeeplink');
-
-    return deferredDeeplink;
-
-  }
 
   static Future<String?> get adbrixDeeplink async {
     String deeplink = await _channel.invokeMethod('adbrixDeeplink');
@@ -108,91 +52,392 @@ class AdBrixRm {
     return deeplink;
   }
 
-  static void startGettingIDFA() {
-    _channel.invokeMethod('startGettingIDFA');
+  static Future<String?> get adbrixDeferredDeeplink async {
+    String deferredDeeplink =
+        await _channel.invokeMethod('adbrixDeferredDeeplink');
+
+    return deferredDeeplink;
   }
 
-  static void stopGettingIDFA() {
-    _channel.invokeMethod('stopGettingIDFA');
-  }
+  static void commerceAddToCart(
+      {required List<AdBrixRmCommerceProductModel> productList,
+      Map<String, dynamic>? attr}) {
+    List<Map<String, dynamic>> getProductList = [];
 
-  // Additional SDK setup
-
-  static void setLogLevel({required AdBrixLogLevel logLevel}) {
-    _channel.invokeMethod('setLogLevel', logLevel.toString().split('.').last);
-
-    print(logLevel.toString().split('.').last);
-  }
-
-  static void setEventUploadCountInterval(
-      {required AdBrixEventUploadCountInterval interval}) {
-    _channel.invokeMethod(
-        'setEventUploadCountInterval', interval.toString().split('.').last);
-  }
-
-  static void setEventUploadTimeInterval(
-      {required AdBrixEventUploadTimeInterval interval}) {
-    _channel.invokeMethod(
-        'setEventUploadTimeInterval', interval.toString().split('.').last);
-  }
-
-  // GDPR Setup
-
-  static void gdprForgetMe() {
-    _channel.invokeMethod('gdprForgetMe');
-  }
-
-  // UserProperties Setup
-
-  static void setAge({required int age}) {
-    _channel.invokeMethod('setAge', age);
-  }
-
-  static void setGender({required AdBrixGender gender}) {
-    _channel.invokeMethod('setGender', gender.toString().split('.').last);
-  }
-
-  static void setUserProperties({required Map<String, dynamic> properties}) {
-    _channel.invokeMethod('setUserProperties', properties);
-  }
-
-  // Custom Event
-
-  static void events(
-      {required String eventName, Map<String, dynamic>? attr}) async {
+    for (int i = 0; i < productList.length; i++) {
+      Map<String, dynamic> product = mappingProductModel(productList[i]);
+      getProductList.add(product);
+    }
     if (attr != null) {
       _attrBoolChanger(attr);
 
       Map<String, dynamic> params = <String, dynamic>{
-        'eventName': eventName,
-        'attr': attr
-      };
-      _channel.invokeMethod('events', params);
-    } else {
-      Map<String, dynamic> params = <String, dynamic>{
-        'eventName': eventName,
+        'productList': getProductList,
+        'attr': attr,
       };
 
-      _channel.invokeMethod('events', params);
+      _channel.invokeMethod('commerceAddToCart', params);
+    } else {
+      Map<String, dynamic> params = <String, dynamic>{
+        'productList': getProductList,
+      };
+
+      _channel.invokeMethod('commerceAddToCart', params);
+    }
+  }
+
+  static void commerceAddToWishList(
+      {required AdBrixRmCommerceProductModel productModel,
+      Map<String, dynamic>? attr}) {
+    if (attr != null) {
+      _attrBoolChanger(attr);
+
+      Map<String, dynamic> params = <String, dynamic>{
+        'productModel': productModel.getProductModel(),
+        'attr': attr
+      };
+
+      _channel.invokeMethod('commerceAddToWishList', params);
+    } else {
+      Map<String, dynamic> params = <String, dynamic>{
+        'productModel': productModel.getProductModel()
+      };
+
+      _channel.invokeMethod('commerceAddToWishList', params);
+    }
+  }
+
+  static void commerceCartView(
+      {required List<AdBrixRmCommerceProductModel> productList,
+      Map<String, dynamic>? attr}) {
+    List<Map<String, dynamic>> getProductList = [];
+
+    for (int i = 0; i < productList.length; i++) {
+      Map<String, dynamic> product = mappingProductModel(productList[i]);
+      getProductList.add(product);
+    }
+
+    if (attr != null) {
+      _attrBoolChanger(attr);
+
+      Map<String, dynamic> params = <String, dynamic>{
+        'productList': getProductList,
+        'attr': attr
+      };
+
+      _channel.invokeMethod('commerceCartView', params);
+    } else {
+      Map<String, dynamic> params = <String, dynamic>{
+        'productList': getProductList
+      };
+
+      _channel.invokeMethod('commerceCartView', params);
+    }
+  }
+
+  // Additional SDK setup
+
+  static void commerceCategoryView(
+      {required AdBrixRmCommerceCategoryModel categoryModel,
+      required List<AdBrixRmCommerceProductModel> productList,
+      Map<String, dynamic>? attr}) {
+    List<Map<String, dynamic>> getProductList = [];
+
+    for (int i = 0; i < productList.length; i++) {
+      Map<String, dynamic> product = mappingProductModel(productList[i]);
+      getProductList.add(product);
+    }
+
+    if (attr != null) {
+      _attrBoolChanger(attr);
+
+      Map<String, dynamic> params = <String, dynamic>{
+        'categoryModel': categoryModel.getCategoryList(),
+        'productList': getProductList,
+        'attr': attr,
+      };
+
+      _channel.invokeMethod('commerceCategoryView', params);
+    } else {
+      Map<String, dynamic> params = <String, dynamic>{
+        'categoryModel': categoryModel.getCategoryList(),
+        'productList': getProductList
+      };
+
+      _channel.invokeMethod('commerceCategoryView', params);
+    }
+  }
+
+  static void commerceListView(
+      {required List<AdBrixRmCommerceProductModel> productList,
+      Map<String, dynamic>? attr}) {
+    List<Map<String, dynamic>> getProductList = [];
+
+    for (int i = 0; i < productList.length; i++) {
+      Map<String, dynamic> product = mappingProductModel(productList[i]);
+      getProductList.add(product);
+    }
+
+    if (attr != null) {
+      _attrBoolChanger(attr);
+
+      Map<String, dynamic> params = <String, dynamic>{
+        'productList': getProductList,
+        'attr': attr
+      };
+
+      _channel.invokeMethod('commerceListView', params);
+    } else {
+      Map<String, dynamic> params = <String, dynamic>{
+        'productList': getProductList
+      };
+
+      _channel.invokeMethod('commerceListView', params);
+    }
+  }
+
+  static void commercePaymentInfoAdd({Map<String, dynamic>? attr}) {
+    if (attr != null) {
+      _attrBoolChanger(attr);
+
+      Map<String, dynamic> params = <String, dynamic>{'attr': attr};
+
+      _channel.invokeMethod('commercePaymentInfoAdd', params);
+    } else {
+      _channel.invokeMethod('commercePaymentInfoAdd');
+    }
+  }
+
+  // GDPR Setup
+
+  static void commerceProductView(
+      {required AdBrixRmCommerceProductModel productModel,
+      Map<String, dynamic>? attr}) {
+    if (attr != null) {
+      _attrBoolChanger(attr);
+
+      Map<String, dynamic> params = <String, dynamic>{
+        'productModel': productModel.getProductModel(),
+        'attr': attr
+      };
+
+      _channel.invokeMethod('commerceProductView', params);
+    } else {
+      Map<String, dynamic> params = <String, dynamic>{
+        'productModel': productModel.getProductModel()
+      };
+
+      _channel.invokeMethod('commerceProductView', params);
+    }
+  }
+
+  // UserProperties Setup
+
+  static void commerceRefund(
+      {required String orderId,
+      required List<AdBrixRmCommerceProductModel> productList,
+      required double penaltyCharge,
+      Map<String, dynamic>? attr}) {
+    List<Map<String, dynamic>> getProductList = [];
+
+    for (int i = 0; i < productList.length; i++) {
+      Map<String, dynamic> product = mappingProductModel(productList[i]);
+      getProductList.add(product);
+    }
+
+    if (attr != null) {
+      _attrBoolChanger(attr);
+
+      Map<String, dynamic> params = <String, dynamic>{
+        'orderId': orderId,
+        'productList': getProductList,
+        'penaltyCharge': penaltyCharge,
+        'attr': attr,
+      };
+
+      _channel.invokeMethod('commerceRefund', params);
+    } else {
+      Map<String, dynamic> params = <String, dynamic>{
+        'orderId': orderId,
+        'productList': getProductList,
+        'penaltyCharge': penaltyCharge
+      };
+
+      _channel.invokeMethod('commerceRefund', params);
+    }
+  }
+
+  static void commerceReviewOrder(
+      {required String orderId,
+      required List<AdBrixRmCommerceProductModel> productList,
+      required double discount,
+      required double deliveryCharge,
+      Map<String, dynamic>? attr}) {
+    List<Map<String, dynamic>> getProductList = [];
+
+    for (int i = 0; i < productList.length; i++) {
+      Map<String, dynamic> product = mappingProductModel(productList[i]);
+      getProductList.add(product);
+    }
+
+    if (attr != null) {
+      _attrBoolChanger(attr);
+
+      Map<String, dynamic> params = <String, dynamic>{
+        'orderId': orderId,
+        'productList': getProductList,
+        'discount': discount,
+        'deliveryCharge': deliveryCharge,
+        'attr': attr
+      };
+
+      _channel.invokeMethod('commerceReviewOrder', params);
+    } else {
+      Map<String, dynamic> params = <String, dynamic>{
+        'orderId': orderId,
+        'productList': getProductList,
+        'discount': discount,
+        'deliveryCharge': deliveryCharge,
+      };
+
+      _channel.invokeMethod('commerceReviewOrder', params);
+    }
+  }
+
+  static void commerceSearch(
+      {required String keyword,
+      required List<AdBrixRmCommerceProductModel> productList,
+      Map<String, dynamic>? attr}) {
+    List<Map<String, dynamic>> getProductList = [];
+
+    for (int i = 0; i < productList.length; i++) {
+      Map<String, dynamic> product = mappingProductModel(productList[i]);
+      getProductList.add(product);
+    }
+
+    if (attr != null) {
+      _attrBoolChanger(attr);
+
+      Map<String, dynamic> params = <String, dynamic>{
+        'keyword': keyword,
+        'productList': getProductList,
+        'attr': attr
+      };
+
+      _channel.invokeMethod('commerceSearch', params);
+    } else {
+      Map<String, dynamic> params = <String, dynamic>{
+        'keyword': keyword,
+        'productList': getProductList
+      };
+
+      _channel.invokeMethod('commerceSearch', params);
+    }
+  }
+
+  // Custom Event
+
+  static void commerceShare(
+      {required AdBrixSharingChannel sharingChannel,
+      required AdBrixRmCommerceProductModel productModel,
+      Map<String, dynamic>? attr}) {
+    if (attr != null) {
+      _attrBoolChanger(attr);
+
+      Map<String, dynamic> params = <String, dynamic>{
+        'sharingChannel': sharingChannel.toString().split('.').last,
+        'productModel': productModel.getProductModel(),
+        'attr': attr
+      };
+
+      _channel.invokeMethod('commerceShare', params);
+    } else {
+      Map<String, dynamic> params = <String, dynamic>{
+        'sharingChannel': sharingChannel.toString().split('.').last,
+        'productModel': productModel.getProductModel()
+      };
+
+      _channel.invokeMethod('commerceShare', params);
     }
   }
 
   // Login
 
-  static void login({required String userId}) {
-    Map<String, dynamic> params = <String, dynamic>{
-      'userId': userId,
-    };
-
-    _channel.invokeMethod('login', params);
+  static void commerceViewHome() {
+    _channel.invokeMethod('commerceViewHome');
   }
 
   // Logout
-  static void logout() {
-    _channel.invokeMethod('logout');
+  static void commonAppUpdate(
+      {required String preVersion,
+      required String currVersion,
+      Map<String, dynamic>? attr}) {
+    if (attr != null) {
+      _attrBoolChanger(attr);
+
+      Map<String, dynamic> params = <String, dynamic>{
+        'preVersion': preVersion,
+        'currVersion': currVersion,
+        'attr': attr
+      };
+
+      _channel.invokeMethod('appUpdate', params);
+    } else {
+      Map<String, dynamic> params = <String, dynamic>{
+        'preVersion': preVersion,
+        'currVersion': currVersion,
+      };
+
+      _channel.invokeMethod('appUpdate', params);
+    }
   }
 
   // commonSignUp
+
+  static void commonPurchase(
+      {required String orderId,
+      required List<AdBrixRmCommerceProductModel> productList,
+      required double orderSale,
+      required double discount,
+      required double deliveryCharge,
+      required AdBrixPaymentMethod paymentMethod,
+      Map<String, dynamic>? attr}) {
+    List<Map<String, dynamic>> getProductList = [];
+
+    for (int i = 0; i < productList.length; i++) {
+      Map<String, dynamic> product = mappingProductModel(productList[i]);
+      getProductList.add(product);
+    }
+
+    if (attr != null) {
+      _attrBoolChanger(attr);
+
+      Map<String, dynamic> params = <String, dynamic>{
+        'orderId': orderId,
+        'productList': getProductList,
+        'orderSale': orderSale,
+        'discount': discount,
+        'deliveryCharge': deliveryCharge,
+        'paymentMethod': paymentMethod.toString().split('.').last,
+        'attr': attr,
+      };
+
+      _channel.invokeMethod('commonPurchase', params);
+    } else {
+      Map<String, dynamic> params = <String, dynamic>{
+        'orderId': orderId,
+        'productList': getProductList,
+        'orderSale': orderSale,
+        'discount': discount,
+        'deliveryCharge': deliveryCharge,
+        'paymentMethod': paymentMethod.toString().split('.').last
+      };
+
+      _channel.invokeMethod('commonPurchase', params);
+    }
+  }
+
+  //AppUpdate
 
   static void commonSignUp(
       {required AdBrixSignUpChannel channel, Map<String, dynamic>? attr}) {
@@ -274,33 +519,21 @@ class AdBrixRm {
     }
   }
 
-  //AppUpdate
+  // UserInvite
 
-  static void commonAppUpdate(
-      {required String preVersion,
-      required String currVersion,
-      Map<String, dynamic>? attr}) {
+  static void commonUseCredit({Map<String, dynamic>? attr}) {
     if (attr != null) {
       _attrBoolChanger(attr);
 
-      Map<String, dynamic> params = <String, dynamic>{
-        'preVersion': preVersion,
-        'currVersion': currVersion,
-        'attr': attr
-      };
+      Map<String, dynamic> params = <String, dynamic>{'attr': attr};
 
-      _channel.invokeMethod('appUpdate', params);
+      _channel.invokeMethod('useCredit', params);
     } else {
-      Map<String, dynamic> params = <String, dynamic>{
-        'preVersion': preVersion,
-        'currVersion': currVersion,
-      };
-
-      _channel.invokeMethod('appUpdate', params);
+      _channel.invokeMethod('useCredit');
     }
   }
 
-  // UserInvite
+  //useCredit
 
   static void commonUserInvite(
       {required AdBrixInviteChannel inviteChannel,
@@ -378,35 +611,24 @@ class AdBrixRm {
     }
   }
 
-  //useCredit
+  //gameTutorialComplete
 
-  static void commonUseCredit({Map<String, dynamic>? attr}) {
+  static void events(
+      {required String eventName, Map<String, dynamic>? attr}) async {
     if (attr != null) {
       _attrBoolChanger(attr);
 
-      Map<String, dynamic> params = <String, dynamic>{'attr': attr};
-
-      _channel.invokeMethod('useCredit', params);
-    } else {
-      _channel.invokeMethod('useCredit');
-    }
-  }
-
-  //gameTutorialComplete
-
-  static void gameTutorialComplete(
-      {required bool isSkip, Map<String, dynamic>? attr}) {
-    if (attr != null) {
-      Map<String, dynamic> param = <String, dynamic>{
-        'isSkip': isSkip,
+      Map<String, dynamic> params = <String, dynamic>{
+        'eventName': eventName,
         'attr': attr
       };
-
-      _channel.invokeMethod('gameTutorialComplete', param);
+      _channel.invokeMethod('events', params);
     } else {
-      Map<String, dynamic> param = <String, dynamic>{'isSkip': isSkip};
+      Map<String, dynamic> params = <String, dynamic>{
+        'eventName': eventName,
+      };
 
-      _channel.invokeMethod('gameTutorialComplete', param);
+      _channel.invokeMethod('events', params);
     }
   }
 
@@ -427,6 +649,28 @@ class AdBrixRm {
   }
 
   //gameStageCleared
+
+  static void gameLevelAchieved(
+      {required int levelAchieved, Map<String, dynamic>? attr}) {
+    if (attr != null) {
+      _attrBoolChanger(attr);
+
+      Map<String, dynamic> params = <String, dynamic>{
+        'levelAchieved': levelAchieved,
+        'attr': attr,
+      };
+
+      _channel.invokeMethod('gameLevelAchieved', params);
+    } else {
+      Map<String, dynamic> params = <String, dynamic>{
+        'levelAchieved': levelAchieved
+      };
+
+      _channel.invokeMethod('gameLevelAchieved', params);
+    }
+  }
+
+  //levelAchieved
 
   static void gameStageCleared({
     required String stageName,
@@ -450,402 +694,129 @@ class AdBrixRm {
     }
   }
 
-  //levelAchieved
-
-  static void gameLevelAchieved(
-      {required int levelAchieved, Map<String, dynamic>? attr}) {
-    if (attr != null) {
-      _attrBoolChanger(attr);
-
-      Map<String, dynamic> params = <String, dynamic>{
-        'levelAchieved': levelAchieved,
-        'attr': attr,
-      };
-
-      _channel.invokeMethod('gameLevelAchieved', params);
-    } else {
-      Map<String, dynamic> params = <String, dynamic>{
-        'levelAchieved': levelAchieved
-      };
-
-      _channel.invokeMethod('gameLevelAchieved', params);
-    }
-  }
-
 //commerceViewHome
 
-  static void commerceViewHome() {
-    _channel.invokeMethod('commerceViewHome');
+  static void gameTutorialComplete(
+      {required bool isSkip, Map<String, dynamic>? attr}) {
+    if (attr != null) {
+      Map<String, dynamic> param = <String, dynamic>{
+        'isSkip': isSkip,
+        'attr': attr
+      };
+
+      _channel.invokeMethod('gameTutorialComplete', param);
+    } else {
+      Map<String, dynamic> param = <String, dynamic>{'isSkip': isSkip};
+
+      _channel.invokeMethod('gameTutorialComplete', param);
+    }
   }
 
 // commerceProductView
 
-  static void commerceProductView(
-      {required AdBrixRmCommerceProductModel productModel,
-      Map<String, dynamic>? attr}) {
-    if (attr != null) {
-      _attrBoolChanger(attr);
-
-      Map<String, dynamic> params = <String, dynamic>{
-        'productModel': productModel.getProductModel(),
-        'attr': attr
-      };
-
-      _channel.invokeMethod('commerceProductView', params);
-    } else {
-      Map<String, dynamic> params = <String, dynamic>{
-        'productModel': productModel.getProductModel()
-      };
-
-      _channel.invokeMethod('commerceProductView', params);
-    }
+  static void gdprForgetMe() {
+    _channel.invokeMethod('gdprForgetMe');
   }
 
   // commerceAddToWishList
 
-  static void commerceAddToWishList(
-      {required AdBrixRmCommerceProductModel productModel,
-      Map<String, dynamic>? attr}) {
-    if (attr != null) {
-      _attrBoolChanger(attr);
+  static void login({required String userId}) {
+    Map<String, dynamic> params = <String, dynamic>{
+      'userId': userId,
+    };
 
-      Map<String, dynamic> params = <String, dynamic>{
-        'productModel': productModel.getProductModel(),
-        'attr': attr
-      };
-
-      _channel.invokeMethod('commerceAddToWishList', params);
-    } else {
-      Map<String, dynamic> params = <String, dynamic>{
-        'productModel': productModel.getProductModel()
-      };
-
-      _channel.invokeMethod('commerceAddToWishList', params);
-    }
+    _channel.invokeMethod('login', params);
   }
 
 // commerceShare
 
-  static void commerceShare(
-      {required AdBrixSharingChannel sharingChannel,
-      required AdBrixRmCommerceProductModel productModel,
-      Map<String, dynamic>? attr}) {
-    if (attr != null) {
-      _attrBoolChanger(attr);
-
-      Map<String, dynamic> params = <String, dynamic>{
-        'sharingChannel': sharingChannel.toString().split('.').last,
-        'productModel': productModel.getProductModel(),
-        'attr': attr
-      };
-
-      _channel.invokeMethod('commerceShare', params);
-    } else {
-      Map<String, dynamic> params = <String, dynamic>{
-        'sharingChannel': sharingChannel.toString().split('.').last,
-        'productModel': productModel.getProductModel()
-      };
-
-      _channel.invokeMethod('commerceShare', params);
-    }
+  static void logout() {
+    _channel.invokeMethod('logout');
   }
 
   // paymentInfoAdd
-
-  static void commercePaymentInfoAdd({Map<String, dynamic>? attr}) {
-    if (attr != null) {
-      _attrBoolChanger(attr);
-
-      Map<String, dynamic> params = <String, dynamic>{'attr': attr};
-
-      _channel.invokeMethod('commercePaymentInfoAdd', params);
-    } else {
-      _channel.invokeMethod('commercePaymentInfoAdd');
-    }
-  }
-
-  //commonPurchase
-
-  static void commonPurchase(
-      {required String orderId,
-      required List<AdBrixRmCommerceProductModel> productList,
-      required double orderSale,
-      required double discount,
-      required double deliveryCharge,
-      required AdBrixPaymentMethod paymentMethod,
-      Map<String, dynamic>? attr}) {
-    List<Map<String, dynamic>> getProductList = [];
-
-    for (int i = 0; i < productList.length; i++) {
-      Map<String, dynamic> product = mappingProductModel(productList[i]);
-      getProductList.add(product);
-    }
-
-    if (attr != null) {
-      _attrBoolChanger(attr);
-
-      Map<String, dynamic> params = <String, dynamic>{
-        'orderId': orderId,
-        'productList': getProductList,
-        'orderSale': orderSale,
-        'discount': discount,
-        'deliveryCharge': deliveryCharge,
-        'paymentMethod': paymentMethod.toString().split('.').last,
-        'attr': attr,
-      };
-
-      _channel.invokeMethod('commonPurchase', params);
-    } else {
-      Map<String, dynamic> params = <String, dynamic>{
-        'orderId': orderId,
-        'productList': getProductList,
-        'orderSale': orderSale,
-        'discount': discount,
-        'deliveryCharge': deliveryCharge,
-        'paymentMethod': paymentMethod.toString().split('.').last
-      };
-
-      _channel.invokeMethod('commonPurchase', params);
-    }
-  }
-
-  // commerceCategoryView
-
-  static void commerceCategoryView(
-      {required AdBrixRmCommerceCategoryModel categoryModel,
-      required List<AdBrixRmCommerceProductModel> productList,
-      Map<String, dynamic>? attr}) {
-    List<Map<String, dynamic>> getProductList = [];
-
-    for (int i = 0; i < productList.length; i++) {
-      Map<String, dynamic> product = mappingProductModel(productList[i]);
-      getProductList.add(product);
-    }
-
-    if (attr != null) {
-      _attrBoolChanger(attr);
-
-      Map<String, dynamic> params = <String, dynamic>{
-        'categoryModel': categoryModel.getCategoryList(),
-        'productList': getProductList,
-        'attr': attr,
-      };
-
-      _channel.invokeMethod('commerceCategoryView', params);
-    } else {
-      Map<String, dynamic> params = <String, dynamic>{
-        'categoryModel': categoryModel.getCategoryList(),
-        'productList': getProductList
-      };
-
-      _channel.invokeMethod('commerceCategoryView', params);
-    }
-  }
-
-  // commerceAddToCart
-
-  static void commerceAddToCart(
-      {required List<AdBrixRmCommerceProductModel> productList,
-      Map<String, dynamic>? attr}) {
-    List<Map<String, dynamic>> getProductList = [];
-
-    for (int i = 0; i < productList.length; i++) {
-      Map<String, dynamic> product = mappingProductModel(productList[i]);
-      getProductList.add(product);
-    }
-    if (attr != null) {
-      _attrBoolChanger(attr);
-
-      Map<String, dynamic> params = <String, dynamic>{
-        'productList': getProductList,
-        'attr': attr,
-      };
-
-      _channel.invokeMethod('commerceAddToCart', params);
-    } else {
-      Map<String, dynamic> params = <String, dynamic>{
-        'productList': getProductList,
-      };
-
-      _channel.invokeMethod('commerceAddToCart', params);
-    }
-  }
-
-  // commerceReviewOrder
-
-  static void commerceReviewOrder(
-      {required String orderId,
-      required List<AdBrixRmCommerceProductModel> productList,
-      required double discount,
-      required double deliveryCharge,
-      Map<String, dynamic>? attr}) {
-    List<Map<String, dynamic>> getProductList = [];
-
-    for (int i = 0; i < productList.length; i++) {
-      Map<String, dynamic> product = mappingProductModel(productList[i]);
-      getProductList.add(product);
-    }
-
-    if (attr != null) {
-      _attrBoolChanger(attr);
-
-      Map<String, dynamic> params = <String, dynamic>{
-        'orderId': orderId,
-        'productList': getProductList,
-        'discount': discount,
-        'deliveryCharge': deliveryCharge,
-        'attr': attr
-      };
-
-      _channel.invokeMethod('commerceReviewOrder', params);
-    } else {
-      Map<String, dynamic> params = <String, dynamic>{
-        'orderId': orderId,
-        'productList': getProductList,
-        'discount': discount,
-        'deliveryCharge': deliveryCharge,
-      };
-
-      _channel.invokeMethod('commerceReviewOrder', params);
-    }
-  }
-
-  //commerceRefund
-
-  static void commerceRefund(
-      {required String orderId,
-      required List<AdBrixRmCommerceProductModel> productList,
-      required double penaltyCharge,
-      Map<String, dynamic>? attr}) {
-    List<Map<String, dynamic>> getProductList = [];
-
-    for (int i = 0; i < productList.length; i++) {
-      Map<String, dynamic> product = mappingProductModel(productList[i]);
-      getProductList.add(product);
-    }
-
-    if (attr != null) {
-      _attrBoolChanger(attr);
-
-      Map<String, dynamic> params = <String, dynamic>{
-        'orderId': orderId,
-        'productList': getProductList,
-        'penaltyCharge': penaltyCharge,
-        'attr': attr,
-      };
-
-      _channel.invokeMethod('commerceRefund', params);
-    } else {
-      Map<String, dynamic> params = <String, dynamic>{
-        'orderId': orderId,
-        'productList': getProductList,
-        'penaltyCharge': penaltyCharge
-      };
-
-      _channel.invokeMethod('commerceRefund', params);
-    }
-  }
-
-  // commerceSearch
-
-  static void commerceSearch(
-      {required String keyword,
-      required List<AdBrixRmCommerceProductModel> productList,
-      Map<String, dynamic>? attr}) {
-    List<Map<String, dynamic>> getProductList = [];
-
-    for (int i = 0; i < productList.length; i++) {
-      Map<String, dynamic> product = mappingProductModel(productList[i]);
-      getProductList.add(product);
-    }
-
-    if (attr != null) {
-      _attrBoolChanger(attr);
-
-      Map<String, dynamic> params = <String, dynamic>{
-        'keyword': keyword,
-        'productList': getProductList,
-        'attr': attr
-      };
-
-      _channel.invokeMethod('commerceSearch', params);
-    } else {
-      Map<String, dynamic> params = <String, dynamic>{
-        'keyword': keyword,
-        'productList': getProductList
-      };
-
-      _channel.invokeMethod('commerceSearch', params);
-    }
-  }
-
-  //commerceListView
-
-  static void commerceListView(
-      {required List<AdBrixRmCommerceProductModel> productList,
-      Map<String, dynamic>? attr}) {
-    List<Map<String, dynamic>> getProductList = [];
-
-    for (int i = 0; i < productList.length; i++) {
-      Map<String, dynamic> product = mappingProductModel(productList[i]);
-      getProductList.add(product);
-    }
-
-    if (attr != null) {
-      _attrBoolChanger(attr);
-
-      Map<String, dynamic> params = <String, dynamic>{
-        'productList': getProductList,
-        'attr': attr
-      };
-
-      _channel.invokeMethod('commerceListView', params);
-    } else {
-      Map<String, dynamic> params = <String, dynamic>{
-        'productList': getProductList
-      };
-
-      _channel.invokeMethod('commerceListView', params);
-    }
-  }
-
-  // commerceCartView
-
-  static void commerceCartView(
-      {required List<AdBrixRmCommerceProductModel> productList,
-      Map<String, dynamic>? attr}) {
-    List<Map<String, dynamic>> getProductList = [];
-
-    for (int i = 0; i < productList.length; i++) {
-      Map<String, dynamic> product = mappingProductModel(productList[i]);
-      getProductList.add(product);
-    }
-
-    if (attr != null) {
-      _attrBoolChanger(attr);
-
-      Map<String, dynamic> params = <String, dynamic>{
-        'productList': getProductList,
-        'attr': attr
-      };
-
-      _channel.invokeMethod('commerceCartView', params);
-    } else {
-      Map<String, dynamic> params = <String, dynamic>{
-        'productList': getProductList
-      };
-
-      _channel.invokeMethod('commerceCartView', params);
-    }
-  }
-
-  // AdBrixRm Event Utility
 
   static Map<String, dynamic> mappingProductModel(
       AdBrixRmCommerceProductModel item) {
     Map<String, dynamic> dic = item.getProductModel();
 
     return dic;
+  }
+
+  //commonPurchase
+
+  static void sdkInit(
+      {required String appKey, required String secretKey, int? delayTime}) {
+    Map<String, dynamic> param = {};
+
+    if (Platform.isIOS) {
+      if (delayTime != null) {
+        param = {
+          'AppKey': appKey,
+          'SecretKey': secretKey,
+          'DelayTime': delayTime
+        };
+      } else {
+        param = {'AppKey': appKey, 'SecretKey': secretKey};
+      }
+    } else {
+      param = {'AppKey': appKey, 'SecretKey': secretKey};
+    }
+    _channel.invokeMethod('sdkInit', param);
+  }
+
+  // commerceCategoryView
+
+  static void setAge({required int age}) {
+    _channel.invokeMethod('setAge', age);
+  }
+
+  // commerceAddToCart
+
+  static void setEventUploadCountInterval(
+      {required AdBrixEventUploadCountInterval interval}) {
+    _channel.invokeMethod(
+        'setEventUploadCountInterval', interval.toString().split('.').last);
+  }
+
+  // commerceReviewOrder
+
+  static void setEventUploadTimeInterval(
+      {required AdBrixEventUploadTimeInterval interval}) {
+    _channel.invokeMethod(
+        'setEventUploadTimeInterval', interval.toString().split('.').last);
+  }
+
+  //commerceRefund
+
+  static void setGender({required AdBrixGender gender}) {
+    _channel.invokeMethod('setGender', gender.toString().split('.').last);
+  }
+
+  // commerceSearch
+
+  static void setLogLevel({required AdBrixLogLevel logLevel}) {
+    _channel.invokeMethod('setLogLevel', logLevel.toString().split('.').last);
+
+    print(logLevel.toString().split('.').last);
+  }
+
+  //commerceListView
+
+  static void setUserProperties({required Map<String, dynamic> properties}) {
+    _channel.invokeMethod('setUserProperties', properties);
+  }
+
+  // commerceCartView
+
+  static void startGettingIDFA() {
+    _channel.invokeMethod('startGettingIDFA');
+  }
+
+  // AdBrixRm Event Utility
+
+  static void stopGettingIDFA() {
+    _channel.invokeMethod('stopGettingIDFA');
   }
 
   static void _attrBoolChanger(Map<String, dynamic> attr) {
@@ -1034,4 +1005,32 @@ class AdBrixRmCommerceProductModel {
       });
     }
   }
+}
+
+enum AdBrixSharingChannel {
+  FACEBOOK,
+  KAKAOTALK,
+  KAKAOSTORY,
+  LINE,
+  WHATSAPP,
+  QQ,
+  WECHAT,
+  SMS,
+  EMAIL,
+  COPYURL,
+  ETC
+}
+
+enum AdBrixSignUpChannel {
+  Kakao,
+  Naver,
+  Line,
+  Google,
+  Facebook,
+  Twitter,
+  WhatsApp,
+  QQ,
+  WeChat,
+  UserId,
+  ETC
 }

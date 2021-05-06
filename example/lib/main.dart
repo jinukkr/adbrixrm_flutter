@@ -4,7 +4,6 @@ import 'package:adbrixrm_flutter/adbrixrm.dart';
 import 'package:adbrixrm_flutter_example/commerceEvent.dart';
 import 'package:adbrixrm_flutter_example/gameEvent.dart';
 import 'package:adbrixrm_flutter_example/userInfoEvent.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -24,72 +23,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   int _currentIndex = 0;
   List _page = [userInfoView(), commerceView(), gameView()];
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-
-    AdBrixRm.startGettingIDFA();
-
-    AdBrixRm.sdkInit(
-        appKey: 'G2Iz74fLkUOcZPZTrZQnQw', secretKey: 'ZP1RO2EDY02kpifcIOlzGQ', delayTime: 3);
-    AdBrixRm.setEventUploadCountInterval(
-        interval: AdBrixEventUploadCountInterval.MIN);
-    AdBrixRm.setEventUploadTimeInterval(
-        interval: AdBrixEventUploadTimeInterval.MIN);
-    AdBrixRm.setLogLevel(logLevel: AdBrixLogLevel.ERROR);
-
-    Timer(Duration(seconds: 3), () {
-      getDeferredDeeplink();
-      getDeeplink();
-    });
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState currentState) {
-    if (currentState == AppLifecycleState.resumed) {
-      print("App is onResume");
-      getDeeplink();
-    }
-  }
-
-  Future<void> getDeferredDeeplink() async {
-    String deferredDeeplink;
-
-    try {
-      deferredDeeplink = await AdBrixRm.adbrixDeferredDeeplink;
-    } on PlatformException {
-      print("there is no deferred deeplink");
-    }
-
-    if (deferredDeeplink != null) {
-      setState(() {
-        _deeferredDeeplink = deferredDeeplink;
-      });
-
-      print("mydeferredDeeplink");
-      print(_deeferredDeeplink);
-    }
-  }
-
-  Future<void> getDeeplink() async {
-    String deeplink;
-
-    try {
-      deeplink = await AdBrixRm.adbrixDeeplink;
-    } on PlatformException {
-      print("there is no deferred deeplink");
-    }
-
-    if (deeplink != null) {
-      setState(() {
-        _deeplink = deeplink;
-      });
-      print("myDeeplink");
-      print(_deeplink);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -114,6 +47,72 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         ),
       ),
     );
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState currentState) {
+    if (currentState == AppLifecycleState.resumed) {
+      print("App is onResume");
+      getDeeplink();
+    }
+  }
+
+  Future<void> getDeeplink() async {
+    String deeplink;
+
+    try {
+      deeplink = await AdBrixRm.adbrixDeeplink;
+    } on PlatformException {
+      print("there is no deferred deeplink");
+    }
+
+    if (deeplink != null) {
+      setState(() {
+        _deeplink = deeplink;
+      });
+      print("myDeeplink");
+      print(_deeplink);
+    }
+  }
+
+  Future<void> getDeferredDeeplink() async {
+    String deferredDeeplink;
+
+    try {
+      deferredDeeplink = await AdBrixRm.adbrixDeferredDeeplink;
+    } on PlatformException {
+      print("there is no deferred deeplink");
+    }
+
+    if (deferredDeeplink != null) {
+      setState(() {
+        _deeferredDeeplink = deferredDeeplink;
+      });
+
+      print("mydeferredDeeplink");
+      print(_deeferredDeeplink);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+
+    AdBrixRm.startGettingIDFA();
+
+    AdBrixRm.sdkInit(
+        appKey: 'G2Iz74fLkUOcZPZTrZQnQw', secretKey: 'ZP1RO2EDY02kpifcIOlzGQ', delayTime: 3);
+    AdBrixRm.setEventUploadCountInterval(
+        interval: AdBrixEventUploadCountInterval.MIN);
+    AdBrixRm.setEventUploadTimeInterval(
+        interval: AdBrixEventUploadTimeInterval.MIN);
+    AdBrixRm.setLogLevel(logLevel: AdBrixLogLevel.ERROR);
+
+    Timer(Duration(seconds: 3), () {
+      getDeferredDeeplink();
+      getDeeplink();
+    });
   }
 
   void onTabTapped(int index) {
