@@ -1,6 +1,8 @@
+## 1.2.4
+* (Android) Change gradle setting for do not adding additional InstallReferrer SDK.
+
 ## 1.2.3
 * (Android) Change Android SDK storage Bintray to MavenCentral.
-
 
 ## 1.2.2
 * (Android) AdBrixRm V2 SDK Updated.

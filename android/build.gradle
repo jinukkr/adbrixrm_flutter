@@ -1,5 +1,5 @@
 group 'com.igaworks.adbrixrm_flutter'
-version '1.2.3'
+version '1.2.4'
 
 buildscript {
     repositories {
@@ -28,7 +28,9 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 dependencies {
-    api 'io.dfinery:android-sdk:2.0.0.8'
+    api ('io.dfinery:android-sdk:2.0.0.8'){
+        exclude group: 'com.android.installreferrer'
+    }
 }
 
 android {
