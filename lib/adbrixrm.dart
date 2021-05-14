@@ -47,16 +47,24 @@ class AdBrixRm {
   static const MethodChannel _channel = const MethodChannel('adbrixrm_flutter');
 
   static Future<String?> get adbrixDeeplink async {
-    String deeplink = await _channel.invokeMethod('adbrixDeeplink');
+    String? deeplink = await _channel.invokeMethod('adbrixDeeplink');
 
-    return deeplink;
+    if (deeplink != null) {
+      return deeplink;
+    } else {
+      return null;
+    }
   }
 
   static Future<String?> get adbrixDeferredDeeplink async {
-    String deferredDeeplink =
+    String? deferredDeeplink =
         await _channel.invokeMethod('adbrixDeferredDeeplink');
 
-    return deferredDeeplink;
+    if (deferredDeeplink != null) {
+      return deferredDeeplink;
+    } else {
+      return null;
+    }
   }
 
   static void commerceAddToCart(
@@ -135,8 +143,6 @@ class AdBrixRm {
     }
   }
 
-  // Additional SDK setup
-
   static void commerceCategoryView(
       {required AdBrixRmCommerceCategoryModel categoryModel,
       required List<AdBrixRmCommerceProductModel> productList,
@@ -208,8 +214,6 @@ class AdBrixRm {
     }
   }
 
-  // GDPR Setup
-
   static void commerceProductView(
       {required AdBrixRmCommerceProductModel productModel,
       Map<String, dynamic>? attr}) {
@@ -230,8 +234,6 @@ class AdBrixRm {
       _channel.invokeMethod('commerceProductView', params);
     }
   }
-
-  // UserProperties Setup
 
   static void commerceRefund(
       {required String orderId,
@@ -335,8 +337,6 @@ class AdBrixRm {
     }
   }
 
-  // Custom Event
-
   static void commerceShare(
       {required AdBrixSharingChannel sharingChannel,
       required AdBrixRmCommerceProductModel productModel,
@@ -361,13 +361,10 @@ class AdBrixRm {
     }
   }
 
-  // Login
-
   static void commerceViewHome() {
     _channel.invokeMethod('commerceViewHome');
   }
 
-  // Logout
   static void commonAppUpdate(
       {required String preVersion,
       required String currVersion,
@@ -391,8 +388,6 @@ class AdBrixRm {
       _channel.invokeMethod('appUpdate', params);
     }
   }
-
-  // commonSignUp
 
   static void commonPurchase(
       {required String orderId,
@@ -436,8 +431,6 @@ class AdBrixRm {
       _channel.invokeMethod('commonPurchase', params);
     }
   }
-
-  //AppUpdate
 
   static void commonSignUp(
       {required AdBrixSignUpChannel channel, Map<String, dynamic>? attr}) {
@@ -519,8 +512,6 @@ class AdBrixRm {
     }
   }
 
-  // UserInvite
-
   static void commonUseCredit({Map<String, dynamic>? attr}) {
     if (attr != null) {
       _attrBoolChanger(attr);
@@ -532,8 +523,6 @@ class AdBrixRm {
       _channel.invokeMethod('useCredit');
     }
   }
-
-  //useCredit
 
   static void commonUserInvite(
       {required AdBrixInviteChannel inviteChannel,
@@ -611,8 +600,6 @@ class AdBrixRm {
     }
   }
 
-  //gameTutorialComplete
-
   static void events(
       {required String eventName, Map<String, dynamic>? attr}) async {
     if (attr != null) {
@@ -632,8 +619,6 @@ class AdBrixRm {
     }
   }
 
-  //gameCharacterCreated
-
   static void gameCharacterCreated({Map<String, dynamic>? attr}) {
     if (attr != null) {
       _attrBoolChanger(attr);
@@ -647,8 +632,6 @@ class AdBrixRm {
       _channel.invokeMethod('gameCharacterCreated');
     }
   }
-
-  //gameStageCleared
 
   static void gameLevelAchieved(
       {required int levelAchieved, Map<String, dynamic>? attr}) {
@@ -669,8 +652,6 @@ class AdBrixRm {
       _channel.invokeMethod('gameLevelAchieved', params);
     }
   }
-
-  //levelAchieved
 
   static void gameStageCleared({
     required String stageName,
@@ -694,8 +675,6 @@ class AdBrixRm {
     }
   }
 
-//commerceViewHome
-
   static void gameTutorialComplete(
       {required bool isSkip, Map<String, dynamic>? attr}) {
     if (attr != null) {
@@ -712,13 +691,9 @@ class AdBrixRm {
     }
   }
 
-// commerceProductView
-
   static void gdprForgetMe() {
     _channel.invokeMethod('gdprForgetMe');
   }
-
-  // commerceAddToWishList
 
   static void login({required String userId}) {
     Map<String, dynamic> params = <String, dynamic>{
@@ -728,13 +703,9 @@ class AdBrixRm {
     _channel.invokeMethod('login', params);
   }
 
-// commerceShare
-
   static void logout() {
     _channel.invokeMethod('logout');
   }
-
-  // paymentInfoAdd
 
   static Map<String, dynamic> mappingProductModel(
       AdBrixRmCommerceProductModel item) {
@@ -742,8 +713,6 @@ class AdBrixRm {
 
     return dic;
   }
-
-  //commonPurchase
 
   static void sdkInit(
       {required String appKey, required String secretKey, int? delayTime}) {
@@ -765,13 +734,13 @@ class AdBrixRm {
     _channel.invokeMethod('sdkInit', param);
   }
 
-  // commerceCategoryView
-
   static void setAge({required int age}) {
     _channel.invokeMethod('setAge', age);
   }
 
-  // commerceAddToCart
+  static void setCiProperties({required Map<String, dynamic> properties}) {
+    _channel.invokeMethod('setCiProperties', properties);
+  }
 
   static void setEventUploadCountInterval(
       {required AdBrixEventUploadCountInterval interval}) {
@@ -779,21 +748,15 @@ class AdBrixRm {
         'setEventUploadCountInterval', interval.toString().split('.').last);
   }
 
-  // commerceReviewOrder
-
   static void setEventUploadTimeInterval(
       {required AdBrixEventUploadTimeInterval interval}) {
     _channel.invokeMethod(
         'setEventUploadTimeInterval', interval.toString().split('.').last);
   }
 
-  //commerceRefund
-
   static void setGender({required AdBrixGender gender}) {
     _channel.invokeMethod('setGender', gender.toString().split('.').last);
   }
-
-  // commerceSearch
 
   static void setLogLevel({required AdBrixLogLevel logLevel}) {
     _channel.invokeMethod('setLogLevel', logLevel.toString().split('.').last);
@@ -801,19 +764,17 @@ class AdBrixRm {
     print(logLevel.toString().split('.').last);
   }
 
-  //commerceListView
+  static void setKakaoId({required String kakaoId}) {
+    _channel.invokeMethod('setKakaoId', kakaoId);
+  }
 
   static void setUserProperties({required Map<String, dynamic> properties}) {
     _channel.invokeMethod('setUserProperties', properties);
   }
 
-  // commerceCartView
-
   static void startGettingIDFA() {
     _channel.invokeMethod('startGettingIDFA');
   }
-
-  // AdBrixRm Event Utility
 
   static void stopGettingIDFA() {
     _channel.invokeMethod('stopGettingIDFA');

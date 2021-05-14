@@ -4,9 +4,9 @@ import AdBrixRM
 
 public class SwiftAdbrixrmFlutterPlugin: NSObject, FlutterPlugin, AdBrixRMDeeplinkDelegate, AdBrixRMDeferredDeeplinkDelegate {
     
-    var myDeferredDeeplink = " deferredDeeplink"
-    var myDeeplink = "deeplink"
-
+    var myDeferredDeeplink : String = ""
+    var myDeeplink : String = ""
+    
     
     public func didReceiveDeeplink(deeplink: String) {
         myDeeplink = deeplink
@@ -50,20 +50,23 @@ public class SwiftAdbrixrmFlutterPlugin: NSObject, FlutterPlugin, AdBrixRMDeepli
         adBrix.delegateDeeplink = self
     }
     
-    func adbrixDeferredDeeplink (result : @escaping FlutterResult) {
+    func adbrixDeferredDeeplink (deferredDeeplink : String, result : @escaping FlutterResult) {
         
-        if myDeferredDeeplink != "deferredDeeplink" {
+        if deferredDeeplink != "" {
             
-            result (self.myDeferredDeeplink)
+            result (deferredDeeplink)
 
+        } else {
+            
+            result (nil)
         }
     }
     
-    func adbrixDeeplink (result : @escaping FlutterResult) {
+    func adbrixDeeplink (deeplink : String, result : @escaping FlutterResult) {
         
-        if myDeeplink != "deeplink" {
+        if deeplink != "" {
             
-            result (self.myDeeplink)
+            result (deeplink)
         }
         
     }
@@ -129,8 +132,6 @@ public class SwiftAdbrixrmFlutterPlugin: NSObject, FlutterPlugin, AdBrixRMDeepli
         adBrix.stopGettingIDFA();
     }
     
-
-    
     func gdprForgetMe (_ call : FlutterMethodCall, result : @escaping FlutterResult ) {
         
         adBrix.gdprForgetMe()
@@ -142,6 +143,12 @@ public class SwiftAdbrixrmFlutterPlugin: NSObject, FlutterPlugin, AdBrixRMDeepli
         adBrix.setAge(int: arg)
     }
     
+    func setKakaoId(_ call : FlutterMethodCall, result : @escaping FlutterResult){
+        
+        let kakaoId = call.arguments as! String
+        adBrix.setKakaoId(kakaoId: kakaoId)
+        
+    }
     
     func setGender (_ call : FlutterMethodCall, result : @escaping FlutterResult) {
         
@@ -163,6 +170,14 @@ public class SwiftAdbrixrmFlutterPlugin: NSObject, FlutterPlugin, AdBrixRMDeepli
         let arg = call.arguments as! Dictionary<String, Any>
         let userProperties = AdBrixUtility.AdBrixRmAttrModelMakeAttrModel(attr: arg)
         adBrix.setUserPropertiesWithAttr(attrModel: userProperties)
+        
+    }
+    
+    func setCiProperties (_ call : FlutterMethodCall, result : @escaping FlutterResult) {
+        
+        let arg = call.arguments as! Dictionary<String, Any>
+        let ciProperties = AdBrixUtility.AdBrixRmAttrModelMakeAttrModel(attr: arg)
+        adBrix.setUserCiWithAttr(attrModel: ciProperties)
         
     }
     
@@ -716,13 +731,17 @@ public class SwiftAdbrixrmFlutterPlugin: NSObject, FlutterPlugin, AdBrixRMDeepli
     case "commerceCartView" :
         commerceCartView (call, result : result)
     case "adbrixDeferredDeeplink" :
-        adbrixDeferredDeeplink(result: result)
+        adbrixDeferredDeeplink(deferredDeeplink: myDeferredDeeplink, result: result)
     case "adbrixDeeplink" :
-        adbrixDeeplink(result: result)
+        adbrixDeeplink(deeplink: myDeeplink, result: result)
     case "startGettingIDFA" :
         startGettingIDFA(call, result: result)
     case "stopGettingIDFA" :
         stopGettingIDFA(call, result: result)
+    case "setKakaoId" :
+        setKakaoId(call, result: result)
+    case "setCiProperties" :
+        setCiProperties(call, result: result)
     default:
         print("AdBrixRm Flutter plugin")
     }

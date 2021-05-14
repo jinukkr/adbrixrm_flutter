@@ -19,7 +19,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   String _deeferredDeeplink;
   String _deeplink;
-  bool _idfaAuthorize = false;
 
   int _currentIndex = 0;
   List _page = [userInfoView(), commerceView(), gameView()];
@@ -99,10 +98,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
 
-    AdBrixRm.startGettingIDFA();
-
     AdBrixRm.sdkInit(
-        appKey: 'G2Iz74fLkUOcZPZTrZQnQw', secretKey: 'ZP1RO2EDY02kpifcIOlzGQ', delayTime: 3);
+        appKey: 'G2Iz74fLkUOcZPZTrZQnQw',
+        secretKey: 'ZP1RO2EDY02kpifcIOlzGQ',
+        delayTime: 3);
     AdBrixRm.setEventUploadCountInterval(
         interval: AdBrixEventUploadCountInterval.MIN);
     AdBrixRm.setEventUploadTimeInterval(

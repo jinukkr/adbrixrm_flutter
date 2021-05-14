@@ -34,7 +34,6 @@ public class AdbrixrmFlutterPlugin implements FlutterPlugin, ActivityAware, Meth
   private Context context;
   private Activity activity;
   private MethodChannel channel;
-  Intent intent;
 
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
@@ -57,13 +56,13 @@ public class AdbrixrmFlutterPlugin implements FlutterPlugin, ActivityAware, Meth
         break;
 
       case "adbrixDeferredDeeplink" :
-        adbrixDeferredDeeplink(result);
+        adbrixDeferredDeeplink(myDeferredDeeplink, result);
         break;
 
       case "adbrixDeeplink" :
-        adbrixDeeplink(result);
+        adbrixDeeplink(myDeeplink, result);
         break;
-        
+
       case "setEventUploadCountInterval":
         setEventUploadCountInterval(call, result);
         break;
@@ -183,6 +182,14 @@ public class AdbrixrmFlutterPlugin implements FlutterPlugin, ActivityAware, Meth
       case "logout":
         logout(result);
         break;
+
+      case "setKakaoId":
+        setKakaoId(call,result);
+        break;
+        
+      case "setCiProperties":
+        setCiProperties(call,result);
+        break;
     }
   }
 
@@ -247,19 +254,32 @@ public class AdbrixrmFlutterPlugin implements FlutterPlugin, ActivityAware, Meth
 
   }
 
-  private void adbrixDeferredDeeplink(Result result) {
+  private void adbrixDeferredDeeplink(String deferredDeeplink, Result result) {
 
-    if (myDeferredDeeplink != null) {
+    if (deferredDeeplink != null ){
 
-      result.success(myDeferredDeeplink);
+      result.success(deferredDeeplink);
+
+    } else {
+
+      result.success(null);
 
     }
+
   }
 
-  private void adbrixDeeplink(Result result) {
-    if (myDeeplink != null) {
-      result.success(myDeeplink);
+  private void adbrixDeeplink(String depplink, Result result) {
+
+    if (depplink != null) {
+
+      result.success(depplink);
+
+    } else {
+
+      result.success(null);
+      
     }
+
   }
 
   private void setEventUploadCountInterval(MethodCall call, Result result) {
@@ -301,6 +321,23 @@ public class AdbrixrmFlutterPlugin implements FlutterPlugin, ActivityAware, Meth
 
     result.success(null);
 
+  }
+
+  private void setKakaoId(MethodCall call, Result result) {
+
+    String kakaoId = call.arguments();
+    AdBrixRm.setKakaoId(kakaoId);
+
+    result.success(null);
+  }
+
+  private void setCiProperties(MethodCall call, Result result){
+
+    HashMap<String, Object> properties = call.arguments();
+    AdBrixRm.CiProperties ciProperties = AdbrixUtility.makeCiProperties(properties);
+    AdBrixRm.saveCiProperties(ciProperties);
+
+    result.success(null);
   }
 
   private void setUserProperties(MethodCall call, Result result) {

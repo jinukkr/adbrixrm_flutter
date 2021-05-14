@@ -18,7 +18,7 @@ Add dependencies on pubspec.yaml
 
 ```
 dependencies:
-  adbrixrm_flutter: ^1.2.4
+  adbrixrm_flutter: ^1.3.0
 ```
 
 ## Integration Guide

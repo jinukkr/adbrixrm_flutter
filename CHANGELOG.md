@@ -1,3 +1,6 @@
+## 1.3.0
+* Ci (Customer Identifier) API Updated.
+
 ## 1.2.4
 * (Android) Change gradle setting for do not adding additional InstallReferrer SDK.
 

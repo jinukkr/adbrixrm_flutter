@@ -74,6 +74,38 @@ public class AdbrixUtility {
         return userProperties;
     }
 
+    public static AdBrixRm.CiProperties makeCiProperties(HashMap<String, Object> attr) {
+
+        AdBrixRm.CiProperties ciProperties = new AdBrixRm.CiProperties();
+        Set<HashMap.Entry<String, Object>> entries = attr.entrySet();
+
+        for (HashMap.Entry<String, Object> entry : entries) {
+
+            if (entry.getValue() instanceof String) {
+                ciProperties.setAttrs(entry.getKey(), entry.getValue().toString());
+
+            } else if (entry.getValue() instanceof Integer) {
+                Integer i = ((Integer) entry.getValue());
+                Long intToLong = Long.valueOf(i);
+                ciProperties.setAttrs(entry.getKey(), intToLong);
+
+            } else if (entry.getValue() instanceof Long) {
+                ciProperties.setAttrs(entry.getKey(), ((Long) entry.getValue()));
+
+            } else if (entry.getValue() instanceof Double) {
+                ciProperties.setAttrs(entry.getKey(), ((Double) entry.getValue()));
+
+            } else if (entry.getValue() instanceof Boolean) {
+                ciProperties.setAttrs(entry.getKey(), ((Boolean) entry.getValue()));
+
+            } else {
+
+                Log.d("Adbrix_QA", "Not_Matched_value:::::" + entry.getKey());
+            }
+        }
+        return ciProperties;
+    }
+
     public static AdBrixRm.CommerceProductModel makeProductModel(HashMap<String, Object> productModel) {
 
         AdBrixRm.CommerceProductModel makeProduct = new AdBrixRm.CommerceProductModel();

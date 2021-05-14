@@ -15,11 +15,8 @@ class _userInfoViewState extends State<userInfoView> {
       'married': false
     };
 
-
     AdBrixRm.commonAppUpdate(
-        preVersion: '2.0.0',
-        currVersion: '3.0.0',
-        attr: properties);
+        preVersion: '2.0.0', currVersion: '3.0.0', attr: properties);
   }
 
   @override
@@ -84,11 +81,36 @@ class _userInfoViewState extends State<userInfoView> {
                   padding: EdgeInsets.all(8.0),
                 )
               ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                ElevatedButton(
+                    onPressed: setKakaoId, child: Text('SetKakaoId')),
+                ElevatedButton(onPressed: setCiInfo, child: Text('SetCiInfo'))
+              ],
             )
           ],
         ),
       ),
     );
+  }
+
+  void setKakaoId() {
+    AdBrixRm.setKakaoId(kakaoId: 'myKakaoId123');
+  }
+
+  void setCiInfo() {
+    Map<String, dynamic> ciProperty = <String, dynamic>{
+      'custom_info_1': "my_Custom_Ci_info",
+      'custom_info_2': 500000,
+      'custom_info_3': 150.50,
+      'custom_info_4': false,
+      'man?': false,
+      'Woman': true
+    };
+
+    AdBrixRm.setCiProperties(properties: ciProperty);
   }
 
   Future<void> setAge() async {
@@ -105,7 +127,7 @@ class _userInfoViewState extends State<userInfoView> {
       'money': 500000,
       'height': 180.50,
       'married': true,
-      'Man?' : 'man'
+      'Man?': 'man'
     };
 
     AdBrixRm.setUserProperties(properties: properties);
@@ -119,10 +141,7 @@ class _userInfoViewState extends State<userInfoView> {
       'married': false
     };
 
-
-    AdBrixRm.commonSignUp(
-        channel: AdBrixSignUpChannel.Naver,
-        attr: properties);
+    AdBrixRm.commonSignUp(channel: AdBrixSignUpChannel.Naver, attr: properties);
   }
 
   Future<void> useCredit() async {
@@ -133,7 +152,6 @@ class _userInfoViewState extends State<userInfoView> {
       'married': false,
       'credituserd': 200.50
     };
-
 
     AdBrixRm.commonUseCredit(attr: properties);
   }
@@ -150,9 +168,7 @@ class _userInfoViewState extends State<userInfoView> {
       'married': false
     };
 
-
     AdBrixRm.commonUserInvite(
-        inviteChannel: AdBrixInviteChannel.Kakao,
-        attr: properties);
+        inviteChannel: AdBrixInviteChannel.Kakao, attr: properties);
   }
 }
