@@ -28,7 +28,7 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 dependencies {
-    api ('io.dfinery:android-sdk:2.0.0.8'){
+    api ('io.dfinery:android-sdk:+'){
         exclude group: 'com.android.installreferrer'
     }
 }

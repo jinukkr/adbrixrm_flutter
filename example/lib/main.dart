@@ -18,7 +18,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   String _deeferredDeeplink;
-  String _deeplink;
 
   int _currentIndex = 0;
   List _page = [userInfoView(), commerceView(), gameView()];
@@ -52,25 +51,27 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState currentState) {
     if (currentState == AppLifecycleState.resumed) {
       print("App is onResume");
-      getDeeplink();
+
+      Timer(Duration(seconds: 3), () {
+
+        getDeeplink();
+      });
     }
   }
 
-  Future<void> getDeeplink() async {
-    String deeplink;
+  Future<String> getDeeplink() async {
+
+    print(':::::::Getting Deeplink Start :::::::');
 
     try {
-      deeplink = await AdBrixRm.adbrixDeeplink;
-    } on PlatformException {
-      print("there is no deferred deeplink");
-    }
+      String deeplink = await AdBrixRm.adbrixDeeplink;
 
-    if (deeplink != null) {
-      setState(() {
-        _deeplink = deeplink;
-      });
-      print("myDeeplink");
-      print(_deeplink);
+      print ("FlutterDeeplink ::::: " + deeplink);
+
+      return deeplink;
+
+    } on PlatformException {
+      print("there is no deeplink");
     }
   }
 
@@ -100,17 +101,18 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
     AdBrixRm.sdkInit(
         appKey: 'G2Iz74fLkUOcZPZTrZQnQw',
-        secretKey: 'ZP1RO2EDY02kpifcIOlzGQ',
-        delayTime: 3);
+        secretKey: 'ZP1RO2EDY02kpifcIOlzGQ');
     AdBrixRm.setEventUploadCountInterval(
         interval: AdBrixEventUploadCountInterval.MIN);
     AdBrixRm.setEventUploadTimeInterval(
         interval: AdBrixEventUploadTimeInterval.MIN);
     AdBrixRm.setLogLevel(logLevel: AdBrixLogLevel.ERROR);
 
+
     Timer(Duration(seconds: 3), () {
       getDeferredDeeplink();
       getDeeplink();
+
     });
   }
 

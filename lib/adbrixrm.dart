@@ -46,25 +46,15 @@ enum AdBrixPaymentMethod { CreditCard, BankTransfer, MobilePayment, ETC }
 class AdBrixRm {
   static const MethodChannel _channel = const MethodChannel('adbrixrm_flutter');
 
-  static Future<String?> get adbrixDeeplink async {
-    String? deeplink = await _channel.invokeMethod('adbrixDeeplink');
-
-    if (deeplink != null) {
-      return deeplink;
-    } else {
-      return null;
-    }
+  static Future<String> get adbrixDeeplink async {
+    String deeplink = await _channel.invokeMethod('adbrixDeeplink');
+    return deeplink;
   }
 
-  static Future<String?> get adbrixDeferredDeeplink async {
-    String? deferredDeeplink =
+  static Future<String> get adbrixDeferredDeeplink async {
+    String deferredDeeplink =
         await _channel.invokeMethod('adbrixDeferredDeeplink');
-
-    if (deferredDeeplink != null) {
-      return deferredDeeplink;
-    } else {
-      return null;
-    }
+    return deferredDeeplink;
   }
 
   static void commerceAddToCart(
