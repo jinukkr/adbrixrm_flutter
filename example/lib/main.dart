@@ -109,7 +109,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     AdBrixRm.setLogLevel(logLevel: AdBrixLogLevel.ERROR);
 
 
-    Timer(Duration(seconds: 3), () {
+    Timer(Duration(seconds: 5), () {
       getDeferredDeeplink();
       getDeeplink();
 
