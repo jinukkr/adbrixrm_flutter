@@ -17,7 +17,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
-  String _deeferredDeeplink;
+  String _deeferredDeeplink = "";
 
   int _currentIndex = 0;
   List _page = [userInfoView(), commerceView(), gameView()];
@@ -53,36 +53,25 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       print("App is onResume");
 
       Timer(Duration(seconds: 3), () {
-
         getDeeplink();
       });
     }
   }
 
   Future<String> getDeeplink() async {
-
     print(':::::::Getting Deeplink Start :::::::');
 
-    try {
-      String deeplink = await AdBrixRm.adbrixDeeplink;
+    String deeplink = await AdBrixRm.adbrixDeeplink;
 
-      print ("FlutterDeeplink ::::: " + deeplink);
+    print("FlutterDeeplink ::::: " + deeplink);
 
-      return deeplink;
-
-    } on PlatformException {
-      print("there is no deeplink");
-    }
+    return deeplink;
   }
 
   Future<void> getDeferredDeeplink() async {
     String deferredDeeplink;
 
-    try {
-      deferredDeeplink = await AdBrixRm.adbrixDeferredDeeplink;
-    } on PlatformException {
-      print("there is no deferred deeplink");
-    }
+    deferredDeeplink = await AdBrixRm.adbrixDeferredDeeplink;
 
     if (deferredDeeplink != null) {
       setState(() {
@@ -97,22 +86,14 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance!.addObserver(this);
 
     AdBrixRm.sdkInit(
-        appKey: 'G2Iz74fLkUOcZPZTrZQnQw',
-        secretKey: 'ZP1RO2EDY02kpifcIOlzGQ');
-    AdBrixRm.setEventUploadCountInterval(
-        interval: AdBrixEventUploadCountInterval.MIN);
-    AdBrixRm.setEventUploadTimeInterval(
-        interval: AdBrixEventUploadTimeInterval.MIN);
-    AdBrixRm.setLogLevel(logLevel: AdBrixLogLevel.ERROR);
-
+        appKey: 'G2Iz74fLkUOcZPZTrZQnQw', secretKey: 'ZP1RO2EDY02kpifcIOlzGQ');
 
     Timer(Duration(seconds: 5), () {
       getDeferredDeeplink();
       getDeeplink();
-
     });
   }
 

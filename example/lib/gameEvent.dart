@@ -59,8 +59,8 @@ class _gameViewState extends State<gameView> {
       'married': true
     };
 
-
     AdBrixRm.gameCharacterCreated(attr: properties);
+    AdBrixRm.gameCharacterCreated();
   }
 
   Future<void> gameTutorial() async {
@@ -72,9 +72,9 @@ class _gameViewState extends State<gameView> {
       'sale': true
     };
 
+    AdBrixRm.gameTutorialComplete(isSkip: true, attr: properties);
 
-    AdBrixRm.gameTutorialComplete(
-        isSkip: true, attr: properties);
+    AdBrixRm.gameTutorialComplete(isSkip: false);
   }
 
   Future<void> levelComplete() async {
@@ -85,9 +85,9 @@ class _gameViewState extends State<gameView> {
       'married': false
     };
 
+    AdBrixRm.gameLevelAchieved(levelAchieved: 22, attr: properties);
 
-    AdBrixRm.gameLevelAchieved(
-        levelAchieved: 22, attr: properties);
+    AdBrixRm.gameLevelAchieved(levelAchieved: 44);
   }
 
   Future<void> stageComplete() async {
@@ -98,8 +98,8 @@ class _gameViewState extends State<gameView> {
       'married': true
     };
 
+    AdBrixRm.gameStageCleared(stageName: '11-5', attr: properties);
 
-    AdBrixRm.gameStageCleared(
-        stageName: '11-5', attr: properties);
+    AdBrixRm.gameStageCleared(stageName: '44-67');
   }
 }

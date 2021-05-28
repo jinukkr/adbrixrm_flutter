@@ -17,6 +17,8 @@ class _userInfoViewState extends State<userInfoView> {
 
     AdBrixRm.commonAppUpdate(
         preVersion: '2.0.0', currVersion: '3.0.0', attr: properties);
+
+    AdBrixRm.commonAppUpdate(preVersion: '1.0.0a', currVersion: '2.0.0a');
   }
 
   @override
@@ -26,62 +28,95 @@ class _userInfoViewState extends State<userInfoView> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('UserProperties + Common Event'),
+            Text('Event Count Interval'),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                RaisedButton(
+                ElevatedButton(onPressed: c_min, child: Text('c_Min')),
+                ElevatedButton(onPressed: c_nor, child: Text('c_Nor')),
+                ElevatedButton(onPressed: c_max, child: Text('c_Max'))
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text('Event Time Interval'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                ElevatedButton(onPressed: t_min, child: Text('t_Min')),
+                ElevatedButton(onPressed: t_Nor, child: Text('t_Nor')),
+                ElevatedButton(onPressed: t_max, child: Text('t_Max')),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text('Text Custom Event : '),
+                ElevatedButton(
+                    onPressed: testCustomEvent, child: Text('customEvent'))
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text('UserProperties'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                ElevatedButton(
                   child: Text('signup'),
                   onPressed: signup,
-                  padding: EdgeInsets.all(8.0),
                 ),
-                RaisedButton(
-                  child: Text('userid'),
+                ElevatedButton(
+                  child: Text('Login'),
                   onPressed: userid,
-                  padding: EdgeInsets.all(8.0),
                 ),
-                RaisedButton(
+                ElevatedButton(
                   child: Text('setAge'),
                   onPressed: setAge,
-                  padding: EdgeInsets.all(8.0),
                 )
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                RaisedButton(
+                ElevatedButton(
                   child: Text('setGender'),
                   onPressed: setGender,
-                  padding: EdgeInsets.all(8.0),
                 ),
-                RaisedButton(
+                ElevatedButton(
                   child: Text('userProperties'),
                   onPressed: setUserproperties,
-                  padding: EdgeInsets.all(8.0),
                 ),
-                RaisedButton(
-                  child: Text('appUpdate'),
-                  onPressed: appUpdate,
-                  padding: EdgeInsets.all(8.0),
-                )
+                ElevatedButton(onPressed: logOut, child: Text('LogOut'))
               ],
             ),
+            SizedBox(
+              height: 10,
+            ),
+            Text('commonEvent'),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                RaisedButton(
+                ElevatedButton(
+                  child: Text('appUpdate'),
+                  onPressed: appUpdate,
+                ),
+                ElevatedButton(
                   child: Text('userInvite'),
                   onPressed: userInvite,
-                  padding: EdgeInsets.all(8.0),
                 ),
-                RaisedButton(
+                ElevatedButton(
                   child: Text('useCredit'),
                   onPressed: useCredit,
-                  padding: EdgeInsets.all(8.0),
                 )
               ],
             ),
+            SizedBox(
+              height: 10,
+            ),
+            Text('Ci Setup'),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
@@ -94,6 +129,44 @@ class _userInfoViewState extends State<userInfoView> {
         ),
       ),
     );
+  }
+
+  void c_min() {
+    AdBrixRm.setEventUploadCountInterval(
+        interval: AdBrixEventUploadCountInterval.MIN);
+  }
+
+  void c_nor() {
+    AdBrixRm.setEventUploadCountInterval(
+        interval: AdBrixEventUploadCountInterval.NORMAL);
+  }
+
+  void c_max() {
+    AdBrixRm.setEventUploadCountInterval(
+        interval: AdBrixEventUploadCountInterval.MAX);
+  }
+
+  void t_min() {
+    AdBrixRm.setEventUploadTimeInterval(
+        interval: AdBrixEventUploadTimeInterval.MIN);
+  }
+
+  void t_Nor() {
+    AdBrixRm.setEventUploadTimeInterval(
+        interval: AdBrixEventUploadTimeInterval.NORMAL);
+  }
+
+  void t_max() {
+    AdBrixRm.setEventUploadTimeInterval(
+        interval: AdBrixEventUploadTimeInterval.MAX);
+  }
+
+  void testCustomEvent() {
+    AdBrixRm.events(eventName: 'EventInterval');
+  }
+
+  void logOut() {
+    AdBrixRm.logout();
   }
 
   void setKakaoId() {
@@ -142,6 +215,7 @@ class _userInfoViewState extends State<userInfoView> {
     };
 
     AdBrixRm.commonSignUp(channel: AdBrixSignUpChannel.Naver, attr: properties);
+    AdBrixRm.commonSignUp(channel: AdBrixSignUpChannel.Facebook);
   }
 
   Future<void> useCredit() async {
@@ -154,10 +228,11 @@ class _userInfoViewState extends State<userInfoView> {
     };
 
     AdBrixRm.commonUseCredit(attr: properties);
+    AdBrixRm.commonUseCredit();
   }
 
   Future<void> userid() async {
-    AdBrixRm.login(userId: 'userID');
+    AdBrixRm.login(userId: 'userID_Flutter');
   }
 
   Future<void> userInvite() async {
@@ -170,5 +245,7 @@ class _userInfoViewState extends State<userInfoView> {
 
     AdBrixRm.commonUserInvite(
         inviteChannel: AdBrixInviteChannel.Kakao, attr: properties);
+
+    AdBrixRm.commonUserInvite(inviteChannel: AdBrixInviteChannel.QQ);
   }
 }

@@ -98,6 +98,7 @@ public class SwiftAdbrixrmFlutterPlugin: NSObject, FlutterPlugin, AdBrixRMDeepli
         func setEventUploadCountInterval (_ call: FlutterMethodCall) {
             
             let arg = call.arguments as! String
+                        
             switch arg {
             case "MIN":
                 adBrix.setEventUploadCountInterval(AdBrixRM.AdBrixEventUploadCountInterval.MIN)

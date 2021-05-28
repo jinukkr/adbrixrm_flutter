@@ -24,126 +24,124 @@ class _commerceViewState extends State<commerceView> {
     };
 
     AdBrixRmCommerceProductModel adBrixRmCommerceProductModel =
-    AdBrixRmCommerceProductModel.create(
-        productId: 'productIDfortEst',
-        productName: 'productNametest',
-        price: 1,
-        discount: 0,
-        quantity: 1,
-        currency: AdBrixCurrency.KR_KRW,
-        category: AdBrixRmCommerceCategoryModel.create(
-            category1: 'categoryTest1',
-            category2: 'categoryTest2',
-            category3: 'categoryTest3'),
-        productAttr: prooductproperties);
-
+        AdBrixRmCommerceProductModel.create(
+            productId: 'productIDfortEst',
+            productName: 'productNametest',
+            price: 1,
+            discount: 0,
+            quantity: 1,
+            currency: AdBrixCurrency.KR_KRW,
+            category: AdBrixRmCommerceCategoryModel.create(
+                category1: 'categoryTest1',
+                category2: 'categoryTest2',
+                category3: 'categoryTest3'),
+            productAttr: prooductproperties);
 
     AdBrixRm.commerceAddToWishList(
-        productModel: adBrixRmCommerceProductModel,
-        attr: eventproperties);
+        productModel: adBrixRmCommerceProductModel, attr: eventproperties);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text("commerceEvent"),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              Text("commerceEvent"),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  RaisedButton(
-                    child: Text('viewHome'),
-                    onPressed: viewHome,
-                    padding: EdgeInsets.all(8.0),
-                  ),
-                  RaisedButton(
-                    child: Text('productView'),
-                    onPressed: productView,
-                    padding: EdgeInsets.all(8.0),
-                  ),
-                  RaisedButton(
-                    child: Text('addToWishList'),
-                    onPressed: addToWishList,
-                    padding: EdgeInsets.all(8.0),
-                  )
-                ],
+              RaisedButton(
+                child: Text('viewHome'),
+                onPressed: viewHome,
+                padding: EdgeInsets.all(8.0),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  RaisedButton(
-                    child: Text('share'),
-                    onPressed: commerceShare,
-                    padding: EdgeInsets.all(8.0),
-                  ),
-                  RaisedButton(
-                    child: Text('paymentInfo'),
-                    onPressed: commercePaymentInfo,
-                    padding: EdgeInsets.all(8.0),
-                  ),
-                  RaisedButton(
-                    child: Text('purchase'),
-                    onPressed: purchase,
-                    padding: EdgeInsets.all(8.0),
-                  ),
-                ],
+              RaisedButton(
+                child: Text('productView'),
+                onPressed: productView,
+                padding: EdgeInsets.all(8.0),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  RaisedButton(
-                    child: Text('CategoryView'),
-                    onPressed: commerceCategoryView,
-                    padding: EdgeInsets.all(8.0),
-                  ),
-                  RaisedButton(
-                    child: Text('addToCart'),
-                    onPressed: commerceAddToCart,
-                    padding: EdgeInsets.all(8.0),
-                  ),
-                  RaisedButton(
-                    child: Text('ReviewOrder'),
-                    onPressed: commerceReviewOrder,
-                    padding: EdgeInsets.all(8.0),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  RaisedButton(
-                    child: Text('Refund'),
-                    onPressed: commerceRefund,
-                    padding: EdgeInsets.all(8.0),
-                  ),
-                  RaisedButton(
-                    child: Text('Search'),
-                    onPressed: commerceSearch,
-                    padding: EdgeInsets.all(8.0),
-                  )
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  RaisedButton(
-                    child: Text('ListView'),
-                    onPressed: commerceListView,
-                    padding: EdgeInsets.all(8.0),
-                  ),
-                  RaisedButton(
-                    child: Text('cartView'),
-                    onPressed: commerceCartview,
-                    padding: EdgeInsets.all(8.0),
-                  )
-                ],
+              RaisedButton(
+                child: Text('addToWishList'),
+                onPressed: addToWishList,
+                padding: EdgeInsets.all(8.0),
               )
             ],
           ),
-        ));
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              RaisedButton(
+                child: Text('share'),
+                onPressed: commerceShare,
+                padding: EdgeInsets.all(8.0),
+              ),
+              RaisedButton(
+                child: Text('paymentInfo'),
+                onPressed: commercePaymentInfo,
+                padding: EdgeInsets.all(8.0),
+              ),
+              RaisedButton(
+                child: Text('purchase'),
+                onPressed: purchase,
+                padding: EdgeInsets.all(8.0),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              RaisedButton(
+                child: Text('CategoryView'),
+                onPressed: commerceCategoryView,
+                padding: EdgeInsets.all(8.0),
+              ),
+              RaisedButton(
+                child: Text('addToCart'),
+                onPressed: commerceAddToCart,
+                padding: EdgeInsets.all(8.0),
+              ),
+              RaisedButton(
+                child: Text('ReviewOrder'),
+                onPressed: commerceReviewOrder,
+                padding: EdgeInsets.all(8.0),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              RaisedButton(
+                child: Text('Refund'),
+                onPressed: commerceRefund,
+                padding: EdgeInsets.all(8.0),
+              ),
+              RaisedButton(
+                child: Text('Search'),
+                onPressed: commerceSearch,
+                padding: EdgeInsets.all(8.0),
+              )
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              RaisedButton(
+                child: Text('ListView'),
+                onPressed: commerceListView,
+                padding: EdgeInsets.all(8.0),
+              ),
+              RaisedButton(
+                child: Text('cartView'),
+                onPressed: commerceCartview,
+                padding: EdgeInsets.all(8.0),
+              )
+            ],
+          )
+        ],
+      ),
+    ));
   }
 
   Future<void> commerceAddToCart() async {
@@ -155,46 +153,45 @@ class _commerceViewState extends State<commerceView> {
     };
 
     AdBrixRmCommerceProductModel adBrixRmCommerceProductModel1 =
-    AdBrixRmCommerceProductModel.create(
-        productId: 'productIDfortEst',
-        productName: 'productNametest',
-        price: 1,
-        discount: 0,
-        quantity: 1,
-        currency: AdBrixCurrency.KR_KRW,
-        category: AdBrixRmCommerceCategoryModel.create(
-            category1: 'categoryTest1'));
+        AdBrixRmCommerceProductModel.create(
+            productId: 'productIDfortEst',
+            productName: 'productNametest',
+            price: 1,
+            discount: 0,
+            quantity: 1,
+            currency: AdBrixCurrency.KR_KRW,
+            category: AdBrixRmCommerceCategoryModel.create(
+                category1: 'categoryTest1'));
 
     AdBrixRmCommerceProductModel adBrixRmCommerceProductModel2 =
-    AdBrixRmCommerceProductModel.create(
-        productId: 'product2',
-        productName: '프로덕트 2',
-        price: 15000.0,
-        discount: 2500.0,
-        quantity: 3,
-        currency: AdBrixCurrency.US_USD,
-        category: AdBrixRmCommerceCategoryModel.create(category1: '프로덕트2'));
+        AdBrixRmCommerceProductModel.create(
+            productId: 'product2',
+            productName: '프로덕트 2',
+            price: 15000.0,
+            discount: 2500.0,
+            quantity: 3,
+            currency: AdBrixCurrency.US_USD,
+            category: AdBrixRmCommerceCategoryModel.create(category1: '프로덕트2'));
 
     AdBrixRmCommerceProductModel adBrixRmCommerceProductModel3 =
-    AdBrixRmCommerceProductModel.create(
-        productId: 'product3',
-        productName: '프로덕트 3',
-        price: 2333.0,
-        discount: 111.0,
-        quantity: 3,
-        currency: AdBrixCurrency.JP_JPY,
-        category:
-        AdBrixRmCommerceCategoryModel.create(category1: '프로덕트34'));
+        AdBrixRmCommerceProductModel.create(
+            productId: 'product3',
+            productName: '프로덕트 3',
+            price: 2333.0,
+            discount: 111.0,
+            quantity: 3,
+            currency: AdBrixCurrency.JP_JPY,
+            category:
+                AdBrixRmCommerceCategoryModel.create(category1: '프로덕트34'));
 
-    List<AdBrixRmCommerceProductModel> productlist =
-    List<AdBrixRmCommerceProductModel>();
+    List<AdBrixRmCommerceProductModel> productlist = [];
     productlist.add(adBrixRmCommerceProductModel1);
     productlist.add(adBrixRmCommerceProductModel2);
     productlist.add(adBrixRmCommerceProductModel3);
 
+    AdBrixRm.commerceAddToCart(productList: productlist, attr: eventproperties);
 
-    AdBrixRm.commerceAddToCart(
-        productList: productlist,attr: eventproperties);
+    AdBrixRm.commerceAddToCart(productList: productlist);
   }
 
   Future<void> commerceCartview() async {
@@ -206,46 +203,45 @@ class _commerceViewState extends State<commerceView> {
     };
 
     AdBrixRmCommerceProductModel adBrixRmCommerceProductModel1 =
-    AdBrixRmCommerceProductModel.create(
-        productId: 'productIDfortEst',
-        productName: 'productNametest',
-        price: 1,
-        discount: 0,
-        quantity: 1,
-        currency: AdBrixCurrency.KR_KRW,
-        category: AdBrixRmCommerceCategoryModel.create(
-            category1: 'categoryTest1'));
+        AdBrixRmCommerceProductModel.create(
+            productId: 'productIDfortEst',
+            productName: 'productNametest',
+            price: 1,
+            discount: 0,
+            quantity: 1,
+            currency: AdBrixCurrency.KR_KRW,
+            category: AdBrixRmCommerceCategoryModel.create(
+                category1: 'categoryTest1'));
 
     AdBrixRmCommerceProductModel adBrixRmCommerceProductModel2 =
-    AdBrixRmCommerceProductModel.create(
-        productId: 'product2',
-        productName: '프로덕트 2',
-        price: 15000.0,
-        discount: 2500.0,
-        quantity: 3,
-        currency: AdBrixCurrency.US_USD,
-        category: AdBrixRmCommerceCategoryModel.create(category1: '프로덕트2'));
+        AdBrixRmCommerceProductModel.create(
+            productId: 'product2',
+            productName: '프로덕트 2',
+            price: 15000.0,
+            discount: 2500.0,
+            quantity: 3,
+            currency: AdBrixCurrency.US_USD,
+            category: AdBrixRmCommerceCategoryModel.create(category1: '프로덕트2'));
 
     AdBrixRmCommerceProductModel adBrixRmCommerceProductModel3 =
-    AdBrixRmCommerceProductModel.create(
-        productId: 'product3',
-        productName: '프로덕트 3',
-        price: 2333.0,
-        discount: 111.0,
-        quantity: 3,
-        currency: AdBrixCurrency.JP_JPY,
-        category:
-        AdBrixRmCommerceCategoryModel.create(category1: '프로덕트34'));
+        AdBrixRmCommerceProductModel.create(
+            productId: 'product3',
+            productName: '프로덕트 3',
+            price: 2333.0,
+            discount: 111.0,
+            quantity: 3,
+            currency: AdBrixCurrency.JP_JPY,
+            category:
+                AdBrixRmCommerceCategoryModel.create(category1: '프로덕트34'));
 
-    List<AdBrixRmCommerceProductModel> productlist =
-    List<AdBrixRmCommerceProductModel>();
+    List<AdBrixRmCommerceProductModel> productlist = [];
     productlist.add(adBrixRmCommerceProductModel1);
     productlist.add(adBrixRmCommerceProductModel2);
     productlist.add(adBrixRmCommerceProductModel3);
 
+    AdBrixRm.commerceCartView(productList: productlist, attr: eventproperties);
 
-    AdBrixRm.commerceCartView(
-        productList: productlist,attr: eventproperties);
+    AdBrixRm.commerceCartView(productList: productlist);
   }
 
   Future<void> commerceCategoryView() async {
@@ -257,55 +253,57 @@ class _commerceViewState extends State<commerceView> {
     };
 
     AdBrixRmCommerceProductModel adBrixRmCommerceProductModel1 =
-    AdBrixRmCommerceProductModel.create(
-        productId: 'productIDfortEst',
-        productName: 'productNametest',
-        price: 1,
-        discount: 0,
-        quantity: 1,
-        currency: AdBrixCurrency.KR_KRW,
-        category: AdBrixRmCommerceCategoryModel.create(
-            category1: 'categoryTest1'));
+        AdBrixRmCommerceProductModel.create(
+            productId: 'productIDfortEst',
+            productName: 'productNametest',
+            price: 1,
+            discount: 0,
+            quantity: 1,
+            currency: AdBrixCurrency.KR_KRW,
+            category: AdBrixRmCommerceCategoryModel.create(
+                category1: 'categoryTest1'));
 
     AdBrixRmCommerceProductModel adBrixRmCommerceProductModel2 =
-    AdBrixRmCommerceProductModel.create(
-        productId: 'product2',
-        productName: '프로덕트 2',
-        price: 15000.0,
-        discount: 2500.0,
-        quantity: 3,
-        currency: AdBrixCurrency.US_USD,
-        category: AdBrixRmCommerceCategoryModel.create(category1: '프로덕트2'));
+        AdBrixRmCommerceProductModel.create(
+            productId: 'product2',
+            productName: '프로덕트 2',
+            price: 15000.0,
+            discount: 2500.0,
+            quantity: 3,
+            currency: AdBrixCurrency.US_USD,
+            category: AdBrixRmCommerceCategoryModel.create(category1: '프로덕트2'));
 
     AdBrixRmCommerceProductModel adBrixRmCommerceProductModel3 =
-    AdBrixRmCommerceProductModel.create(
-        productId: 'product3',
-        productName: '프로덕트 3',
-        price: 2333.0,
-        discount: 111.0,
-        quantity: 3,
-        currency: AdBrixCurrency.JP_JPY,
-        category:
-        AdBrixRmCommerceCategoryModel.create(category1: '프로덕트34'));
+        AdBrixRmCommerceProductModel.create(
+            productId: 'product3',
+            productName: '프로덕트 3',
+            price: 2333.0,
+            discount: 111.0,
+            quantity: 3,
+            currency: AdBrixCurrency.JP_JPY,
+            category:
+                AdBrixRmCommerceCategoryModel.create(category1: '프로덕트34'));
 
-    List<AdBrixRmCommerceProductModel> productlist =
-    List<AdBrixRmCommerceProductModel>();
+    List<AdBrixRmCommerceProductModel> productlist = [];
     productlist.add(adBrixRmCommerceProductModel1);
     productlist.add(adBrixRmCommerceProductModel2);
     productlist.add(adBrixRmCommerceProductModel3);
 
-
     AdBrixRmCommerceCategoryModel eventCategoryModel =
-    AdBrixRmCommerceCategoryModel.create(
-        category1: 'eventcategory1',
-        category2: 'eventcategory2',
-        category3: 'eventcategory3',
-        category4: 'eventCategory4',
-        category5: 'eventCategory5');
+        AdBrixRmCommerceCategoryModel.create(
+            category1: 'eventcategory1',
+            category2: 'eventcategory2',
+            category3: 'eventcategory3',
+            category4: 'eventCategory4',
+            category5: 'eventCategory5');
 
     AdBrixRm.commerceCategoryView(
         categoryModel: eventCategoryModel,
-        productList: productlist,attr: eventproperties);
+        productList: productlist,
+        attr: eventproperties);
+
+    AdBrixRm.commerceCategoryView(
+        categoryModel: eventCategoryModel, productList: productlist);
   }
 
   Future<void> commerceListView() async {
@@ -317,46 +315,45 @@ class _commerceViewState extends State<commerceView> {
     };
 
     AdBrixRmCommerceProductModel adBrixRmCommerceProductModel1 =
-    AdBrixRmCommerceProductModel.create(
-        productId: 'productIDfortEst',
-        productName: 'productNametest',
-        price: 1,
-        discount: 0,
-        quantity: 1,
-        currency: AdBrixCurrency.KR_KRW,
-        category: AdBrixRmCommerceCategoryModel.create(
-            category1: 'categoryTest1'));
+        AdBrixRmCommerceProductModel.create(
+            productId: 'productIDfortEst',
+            productName: 'productNametest',
+            price: 1,
+            discount: 0,
+            quantity: 1,
+            currency: AdBrixCurrency.KR_KRW,
+            category: AdBrixRmCommerceCategoryModel.create(
+                category1: 'categoryTest1'));
 
     AdBrixRmCommerceProductModel adBrixRmCommerceProductModel2 =
-    AdBrixRmCommerceProductModel.create(
-        productId: 'product2',
-        productName: '프로덕트 2',
-        price: 15000.0,
-        discount: 2500.0,
-        quantity: 3,
-        currency: AdBrixCurrency.US_USD,
-        category: AdBrixRmCommerceCategoryModel.create(category1: '프로덕트2'));
+        AdBrixRmCommerceProductModel.create(
+            productId: 'product2',
+            productName: '프로덕트 2',
+            price: 15000.0,
+            discount: 2500.0,
+            quantity: 3,
+            currency: AdBrixCurrency.US_USD,
+            category: AdBrixRmCommerceCategoryModel.create(category1: '프로덕트2'));
 
     AdBrixRmCommerceProductModel adBrixRmCommerceProductModel3 =
-    AdBrixRmCommerceProductModel.create(
-        productId: 'product3',
-        productName: '프로덕트 3',
-        price: 2333.0,
-        discount: 111.0,
-        quantity: 3,
-        currency: AdBrixCurrency.JP_JPY,
-        category:
-        AdBrixRmCommerceCategoryModel.create(category1: '프로덕트34'));
+        AdBrixRmCommerceProductModel.create(
+            productId: 'product3',
+            productName: '프로덕트 3',
+            price: 2333.0,
+            discount: 111.0,
+            quantity: 3,
+            currency: AdBrixCurrency.JP_JPY,
+            category:
+                AdBrixRmCommerceCategoryModel.create(category1: '프로덕트34'));
 
-    List<AdBrixRmCommerceProductModel> productlist =
-    List<AdBrixRmCommerceProductModel>();
+    List<AdBrixRmCommerceProductModel> productlist = [];
     productlist.add(adBrixRmCommerceProductModel1);
     productlist.add(adBrixRmCommerceProductModel2);
     productlist.add(adBrixRmCommerceProductModel3);
 
+    AdBrixRm.commerceListView(productList: productlist, attr: eventproperties);
 
-    AdBrixRm.commerceListView(
-        productList: productlist,attr: eventproperties);
+    AdBrixRm.commerceListView(productList: productlist);
   }
 
   Future<void> commercePaymentInfo() async {
@@ -367,9 +364,9 @@ class _commerceViewState extends State<commerceView> {
       'married': false
     };
 
+    AdBrixRm.commercePaymentInfoAdd(attr: eventproperties);
 
-    AdBrixRm.commercePaymentInfoAdd(
-        attr: eventproperties);
+    AdBrixRm.commercePaymentInfoAdd();
   }
 
   Future<void> commerceRefund() async {
@@ -381,48 +378,52 @@ class _commerceViewState extends State<commerceView> {
     };
 
     AdBrixRmCommerceProductModel adBrixRmCommerceProductModel1 =
-    AdBrixRmCommerceProductModel.create(
-        productId: 'productIDfortEst',
-        productName: 'productNametest',
-        price: 1,
-        discount: 0,
-        quantity: 1,
-        currency: AdBrixCurrency.KR_KRW,
-        category: AdBrixRmCommerceCategoryModel.create(
-            category1: 'categoryTest1'));
+        AdBrixRmCommerceProductModel.create(
+            productId: 'productIDfortEst',
+            productName: 'productNametest',
+            price: 1,
+            discount: 0,
+            quantity: 1,
+            currency: AdBrixCurrency.KR_KRW,
+            category: AdBrixRmCommerceCategoryModel.create(
+                category1: 'categoryTest1'));
 
     AdBrixRmCommerceProductModel adBrixRmCommerceProductModel2 =
-    AdBrixRmCommerceProductModel.create(
-        productId: 'product2',
-        productName: '프로덕트 2',
-        price: 15000.0,
-        discount: 2500.0,
-        quantity: 3,
-        currency: AdBrixCurrency.US_USD,
-        category: AdBrixRmCommerceCategoryModel.create(category1: '프로덕트2'));
+        AdBrixRmCommerceProductModel.create(
+            productId: 'product2',
+            productName: '프로덕트 2',
+            price: 15000.0,
+            discount: 2500.0,
+            quantity: 3,
+            currency: AdBrixCurrency.US_USD,
+            category: AdBrixRmCommerceCategoryModel.create(category1: '프로덕트2'));
 
     AdBrixRmCommerceProductModel adBrixRmCommerceProductModel3 =
-    AdBrixRmCommerceProductModel.create(
-        productId: 'product3',
-        productName: '프로덕트 3',
-        price: 2333.0,
-        discount: 111.0,
-        quantity: 3,
-        currency: AdBrixCurrency.JP_JPY,
-        category:
-        AdBrixRmCommerceCategoryModel.create(category1: '프로덕트34'));
+        AdBrixRmCommerceProductModel.create(
+            productId: 'product3',
+            productName: '프로덕트 3',
+            price: 2333.0,
+            discount: 111.0,
+            quantity: 3,
+            currency: AdBrixCurrency.JP_JPY,
+            category:
+                AdBrixRmCommerceCategoryModel.create(category1: '프로덕트34'));
 
-    List<AdBrixRmCommerceProductModel> productlist =
-    List<AdBrixRmCommerceProductModel>();
+    List<AdBrixRmCommerceProductModel> productlist = [];
     productlist.add(adBrixRmCommerceProductModel1);
     productlist.add(adBrixRmCommerceProductModel2);
     productlist.add(adBrixRmCommerceProductModel3);
 
-
     AdBrixRm.commerceRefund(
         orderId: 'testOrderID1234',
         productList: productlist,
-        penaltyCharge: 4000.0,attr: eventproperties);
+        penaltyCharge: 4000.0,
+        attr: eventproperties);
+
+    AdBrixRm.commerceRefund(
+        orderId: 'flutterOrderId1234',
+        productList: productlist,
+        penaltyCharge: 6000.0);
   }
 
   Future<void> commerceReviewOrder() async {
@@ -434,49 +435,54 @@ class _commerceViewState extends State<commerceView> {
     };
 
     AdBrixRmCommerceProductModel adBrixRmCommerceProductModel1 =
-    AdBrixRmCommerceProductModel.create(
-        productId: 'productIDfortEst',
-        productName: 'productNametest',
-        price: 1,
-        discount: 0,
-        quantity: 1,
-        currency: AdBrixCurrency.KR_KRW,
-        category: AdBrixRmCommerceCategoryModel.create(
-            category1: 'categoryTest1'));
+        AdBrixRmCommerceProductModel.create(
+            productId: 'productIDfortEst',
+            productName: 'productNametest',
+            price: 1,
+            discount: 0,
+            quantity: 1,
+            currency: AdBrixCurrency.KR_KRW,
+            category: AdBrixRmCommerceCategoryModel.create(
+                category1: 'categoryTest1'));
 
     AdBrixRmCommerceProductModel adBrixRmCommerceProductModel2 =
-    AdBrixRmCommerceProductModel.create(
-        productId: 'product2',
-        productName: '프로덕트 2',
-        price: 15000.0,
-        discount: 2500.0,
-        quantity: 3,
-        currency: AdBrixCurrency.US_USD,
-        category: AdBrixRmCommerceCategoryModel.create(category1: '프로덕트2'));
+        AdBrixRmCommerceProductModel.create(
+            productId: 'product2',
+            productName: '프로덕트 2',
+            price: 15000.0,
+            discount: 2500.0,
+            quantity: 3,
+            currency: AdBrixCurrency.US_USD,
+            category: AdBrixRmCommerceCategoryModel.create(category1: '프로덕트2'));
 
     AdBrixRmCommerceProductModel adBrixRmCommerceProductModel3 =
-    AdBrixRmCommerceProductModel.create(
-        productId: 'product3',
-        productName: '프로덕트 3',
-        price: 2333.0,
-        discount: 111.0,
-        quantity: 3,
-        currency: AdBrixCurrency.JP_JPY,
-        category:
-        AdBrixRmCommerceCategoryModel.create(category1: '프로덕트34'));
+        AdBrixRmCommerceProductModel.create(
+            productId: 'product3',
+            productName: '프로덕트 3',
+            price: 2333.0,
+            discount: 111.0,
+            quantity: 3,
+            currency: AdBrixCurrency.JP_JPY,
+            category:
+                AdBrixRmCommerceCategoryModel.create(category1: '프로덕트34'));
 
-    List<AdBrixRmCommerceProductModel> productlist =
-    List<AdBrixRmCommerceProductModel>();
+    List<AdBrixRmCommerceProductModel> productlist = [];
     productlist.add(adBrixRmCommerceProductModel1);
     productlist.add(adBrixRmCommerceProductModel2);
     productlist.add(adBrixRmCommerceProductModel3);
-
 
     AdBrixRm.commerceReviewOrder(
         orderId: 'testorderid1111',
         productList: productlist,
         discount: 5000.0,
-        deliveryCharge: 2500.0,attr: eventproperties);
+        deliveryCharge: 2500.0,
+        attr: eventproperties);
+
+    AdBrixRm.commerceReviewOrder(
+        orderId: 'FlutterOrderId1123',
+        productList: productlist,
+        discount: 6000.0,
+        deliveryCharge: 4500.0);
   }
 
   Future<void> commerceSearch() async {
@@ -488,46 +494,49 @@ class _commerceViewState extends State<commerceView> {
     };
 
     AdBrixRmCommerceProductModel adBrixRmCommerceProductModel1 =
-    AdBrixRmCommerceProductModel.create(
-        productId: 'productIDfortEst',
-        productName: 'productNametest',
-        price: 1,
-        discount: 0,
-        quantity: 1,
-        currency: AdBrixCurrency.KR_KRW,
-        category: AdBrixRmCommerceCategoryModel.create(
-            category1: 'categoryTest1'));
+        AdBrixRmCommerceProductModel.create(
+            productId: 'productIDfortEst',
+            productName: 'productNametest',
+            price: 1,
+            discount: 0,
+            quantity: 1,
+            currency: AdBrixCurrency.KR_KRW,
+            category: AdBrixRmCommerceCategoryModel.create(
+                category1: 'categoryTest1'));
 
     AdBrixRmCommerceProductModel adBrixRmCommerceProductModel2 =
-    AdBrixRmCommerceProductModel.create(
-        productId: 'product2',
-        productName: '프로덕트 2',
-        price: 15000.0,
-        discount: 2500.0,
-        quantity: 3,
-        currency: AdBrixCurrency.US_USD,
-        category: AdBrixRmCommerceCategoryModel.create(category1: '프로덕트2'));
+        AdBrixRmCommerceProductModel.create(
+            productId: 'product2',
+            productName: '프로덕트 2',
+            price: 15000.0,
+            discount: 2500.0,
+            quantity: 3,
+            currency: AdBrixCurrency.US_USD,
+            category: AdBrixRmCommerceCategoryModel.create(category1: '프로덕트2'));
 
     AdBrixRmCommerceProductModel adBrixRmCommerceProductModel3 =
-    AdBrixRmCommerceProductModel.create(
-        productId: 'product3',
-        productName: '프로덕트 3',
-        price: 2333.0,
-        discount: 111.0,
-        quantity: 3,
-        currency: AdBrixCurrency.JP_JPY,
-        category:
-        AdBrixRmCommerceCategoryModel.create(category1: '프로덕트34'));
+        AdBrixRmCommerceProductModel.create(
+            productId: 'product3',
+            productName: '프로덕트 3',
+            price: 2333.0,
+            discount: 111.0,
+            quantity: 3,
+            currency: AdBrixCurrency.JP_JPY,
+            category:
+                AdBrixRmCommerceCategoryModel.create(category1: '프로덕트34'));
 
-    List<AdBrixRmCommerceProductModel> productlist =
-    List<AdBrixRmCommerceProductModel>();
+    List<AdBrixRmCommerceProductModel> productlist = [];
     productlist.add(adBrixRmCommerceProductModel1);
     productlist.add(adBrixRmCommerceProductModel2);
     productlist.add(adBrixRmCommerceProductModel3);
 
     AdBrixRm.commerceSearch(
         keyword: 'searchKeyword',
-        productList: productlist,attr: eventproperties);
+        productList: productlist,
+        attr: eventproperties);
+
+    AdBrixRm.commerceSearch(
+        keyword: 'flutterKeyWord', productList: productlist);
   }
 
   Future<void> commerceShare() async {
@@ -547,19 +556,18 @@ class _commerceViewState extends State<commerceView> {
     };
 
     AdBrixRmCommerceProductModel adBrixRmCommerceProductModel =
-    AdBrixRmCommerceProductModel.create(
-        productId: 'productIDfortEst',
-        productName: 'productNametest',
-        price: 1,
-        discount: 0,
-        quantity: 1,
-        currency: AdBrixCurrency.KR_KRW,
-        category: AdBrixRmCommerceCategoryModel.create(
-            category1: 'categoryTest1',
-            category2: 'categoryTest2',
-            category3: 'categoryTest3'),
-        productAttr: prooductproperties);
-
+        AdBrixRmCommerceProductModel.create(
+            productId: 'productIDfortEst',
+            productName: 'productNametest',
+            price: 1,
+            discount: 0,
+            quantity: 1,
+            currency: AdBrixCurrency.KR_KRW,
+            category: AdBrixRmCommerceCategoryModel.create(
+                category1: 'categoryTest1',
+                category2: 'categoryTest2',
+                category3: 'categoryTest3'),
+            productAttr: prooductproperties);
 
     AdBrixRm.commerceShare(
         sharingChannel: AdBrixSharingChannel.KAKAOSTORY,
@@ -584,23 +592,23 @@ class _commerceViewState extends State<commerceView> {
     };
 
     AdBrixRmCommerceProductModel adBrixRmCommerceProductModel =
-    AdBrixRmCommerceProductModel.create(
-        productId: 'productIDfortEst',
-        productName: 'productNametest',
-        price: 100000.0,
-        discount: 2500.0,
-        quantity: 2,
-        currency: AdBrixCurrency.JP_JPY,
-        category: AdBrixRmCommerceCategoryModel.create(
-            category1: 'categoryTest11',
-            category2: 'categoryTest22',
-            category3: 'categoryTest33'),
-        productAttr: prooductproperties);
+        AdBrixRmCommerceProductModel.create(
+            productId: 'productIDfortEst',
+            productName: 'productNametest',
+            price: 100000.0,
+            discount: 2500.0,
+            quantity: 2,
+            currency: AdBrixCurrency.JP_JPY,
+            category: AdBrixRmCommerceCategoryModel.create(
+                category1: 'categoryTest11',
+                category2: 'categoryTest22',
+                category3: 'categoryTest33'),
+            productAttr: prooductproperties);
 
     AdBrixRm.commerceProductView(
-        productModel: adBrixRmCommerceProductModel,
-        attr: eventproperties);
+        productModel: adBrixRmCommerceProductModel, attr: eventproperties);
 
+    AdBrixRm.commerceProductView(productModel: adBrixRmCommerceProductModel);
   }
 
   Future<void> purchase() async {
@@ -620,39 +628,39 @@ class _commerceViewState extends State<commerceView> {
     };
 
     AdBrixRmCommerceProductModel adBrixRmCommerceProductModel1 =
-    AdBrixRmCommerceProductModel.create(
-        productId: 'productIDfortEst',
-        productName: 'productNametest',
-        price: 1.0,
-        discount: 0.0,
-        quantity: 1,
-        currency: AdBrixCurrency.KR_KRW,
-        category: AdBrixRmCommerceCategoryModel.create(
-            category1: 'categoryTest1'),
-        productAttr: prooductproperties);
+        AdBrixRmCommerceProductModel.create(
+            productId: 'productIDfortEst',
+            productName: 'productNametest',
+            price: 1.0,
+            discount: 0.0,
+            quantity: 1,
+            currency: AdBrixCurrency.KR_KRW,
+            category: AdBrixRmCommerceCategoryModel.create(
+                category1: 'categoryTest1'),
+            productAttr: prooductproperties);
 
     AdBrixRmCommerceProductModel adBrixRmCommerceProductModel2 =
-    AdBrixRmCommerceProductModel.create(
-        productId: 'product2',
-        productName: '프로덕트 2',
-        price: 15000.0,
-        discount: 2500.0,
-        quantity: 3,
-        currency: AdBrixCurrency.US_USD,
-        category: AdBrixRmCommerceCategoryModel.create(category1: '프로덕트2'));
+        AdBrixRmCommerceProductModel.create(
+            productId: 'product2',
+            productName: '프로덕트 2',
+            price: 15000.0,
+            discount: 2500.0,
+            quantity: 3,
+            currency: AdBrixCurrency.US_USD,
+            category: AdBrixRmCommerceCategoryModel.create(category1: '프로덕트2'));
 
     AdBrixRmCommerceProductModel adBrixRmCommerceProductModel3 =
-    AdBrixRmCommerceProductModel.create(
-        productId: 'product3',
-        productName: '프로덕트 3',
-        price: 2333.0,
-        discount: 111.0,
-        quantity: 3,
-        currency: AdBrixCurrency.JP_JPY,
-        category:
-        AdBrixRmCommerceCategoryModel.create(category1: '프로덕트34'));
+        AdBrixRmCommerceProductModel.create(
+            productId: 'product3',
+            productName: '프로덕트 3',
+            price: 2333.0,
+            discount: 111.0,
+            quantity: 3,
+            currency: AdBrixCurrency.JP_JPY,
+            category:
+                AdBrixRmCommerceCategoryModel.create(category1: '프로덕트34'));
 
-    List<AdBrixRmCommerceProductModel> productlist =[];
+    List<AdBrixRmCommerceProductModel> productlist = [];
     productlist.add(adBrixRmCommerceProductModel1);
     productlist.add(adBrixRmCommerceProductModel2);
     productlist.add(adBrixRmCommerceProductModel3);
@@ -663,8 +671,16 @@ class _commerceViewState extends State<commerceView> {
         discount: 1000.0,
         deliveryCharge: 2500.0,
         paymentMethod: AdBrixPaymentMethod.MobilePayment,
-        attr: eventproperties, orderSale: 20000.00);
+        attr: eventproperties,
+        orderSale: 20000.00);
 
+    AdBrixRm.commonPurchase(
+        orderId: 'flutterOrderIdTest',
+        productList: productlist,
+        discount: 3000.0,
+        deliveryCharge: 4500.0,
+        paymentMethod: AdBrixPaymentMethod.BankTransfer,
+        orderSale: 40000.00);
   }
 
   Future<void> viewHome() async {
