@@ -5,7 +5,6 @@ import 'package:adbrixrm_flutter_example/commerceEvent.dart';
 import 'package:adbrixrm_flutter_example/gameEvent.dart';
 import 'package:adbrixrm_flutter_example/userInfoEvent.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 void main() {
   runApp(MyApp());
@@ -58,29 +57,27 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     }
   }
 
-  Future<String> getDeeplink() async {
-    print(':::::::Getting Deeplink Start :::::::');
+  Future<void> getDeeplink() async {
+    String? deeplink = await AdBrixRm.adbrixDeeplink;
 
-    String deeplink = await AdBrixRm.adbrixDeeplink;
+    if (deeplink != null) {
+      print ("DeeplinkString ::::: " + deeplink);
+    } else {
+      print ("No Deeplink String from AdBrix");
+    }
 
-    print("FlutterDeeplink ::::: " + deeplink);
-
-    return deeplink;
   }
 
   Future<void> getDeferredDeeplink() async {
-    String deferredDeeplink;
 
-    deferredDeeplink = await AdBrixRm.adbrixDeferredDeeplink;
+    String? deferredDeeplink = await AdBrixRm.adbrixDeferredDeeplink;
 
     if (deferredDeeplink != null) {
-      setState(() {
-        _deeferredDeeplink = deferredDeeplink;
-      });
-
-      print("mydeferredDeeplink");
-      print(_deeferredDeeplink);
+      print ("DeFerredDeeplinkString :::: " + deferredDeeplink);
+    } else {
+      print ("No DeferredDeeplink String from AdBrix");
     }
+
   }
 
   @override

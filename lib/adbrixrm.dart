@@ -46,13 +46,13 @@ enum AdBrixPaymentMethod { CreditCard, BankTransfer, MobilePayment, ETC }
 class AdBrixRm {
   static const MethodChannel _channel = const MethodChannel('adbrixrm_flutter');
 
-  static Future<String> get adbrixDeeplink async {
-    String deeplink = await _channel.invokeMethod('adbrixDeeplink');
+  static Future<String?> get adbrixDeeplink async {
+    String? deeplink = await _channel.invokeMethod('adbrixDeeplink');
     return deeplink;
   }
 
-  static Future<String> get adbrixDeferredDeeplink async {
-    String deferredDeeplink =
+  static Future<String?> get adbrixDeferredDeeplink async {
+    String? deferredDeeplink =
         await _channel.invokeMethod('adbrixDeferredDeeplink');
     return deferredDeeplink;
   }

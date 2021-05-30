@@ -257,20 +257,22 @@ public class AdbrixrmFlutterPlugin implements FlutterPlugin, ActivityAware, Meth
 
     private void adbrixDeferredDeeplink(String deferredDeeplink, Result result) {
 
-        result.success(deferredDeeplink);
-        myDeferredDeeplink = null;
-
+        if (deferredDeeplink != null){
+            result.success(deferredDeeplink);
+            myDeferredDeeplink = null;
+        } else {
+            result.success(null);
+        }
     }
 
     private void adbrixDeeplink(String depplink, Result result) {
 
         if (depplink != null) {
-
             result.success(depplink);
             myDeeplink = null;
-
+        } else {
+            result.success(null);
         }
-
     }
 
     private void setEventUploadCountInterval(MethodCall call) {
@@ -786,7 +788,6 @@ public class AdbrixrmFlutterPlugin implements FlutterPlugin, ActivityAware, Meth
     @Override
     public void onReceiveDeeplink(String deeplink) {
 
-        Log.d("Peterworks", "Deeplink:::::: " + deeplink);
         if (deeplink != null) {
             myDeeplink = deeplink;
 

@@ -53,22 +53,20 @@ public class SwiftAdbrixrmFlutterPlugin: NSObject, FlutterPlugin, AdBrixRMDeepli
         func adbrixDeferredDeeplink (deferredDeeplink : String, result : @escaping FlutterResult) {
             
             if deferredDeeplink != "" {
-                
                 result (deferredDeeplink)
-                
                 myDeferredDeeplink = ""
-                
+            } else {
+                result(nil)
             }
         }
         
         func adbrixDeeplink (deeplink : String, result : @escaping FlutterResult) {
             
             if deeplink != "" {
-                
                 result (deeplink)
-                
                 myDeeplink = ""
-                
+            } else {
+                result(nil)
             }
         }
         
