@@ -1,6 +1,7 @@
 # adbrixrm_flutter
 
 AdBrixRM Plugin for Flutter Project
+![Pub Version](https://img.shields.io/pub/v/adbrixrm_flutter)
 
 ## Support Platform
 

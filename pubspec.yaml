@@ -2,7 +2,7 @@ name: adbrixrm_flutter
 description: AdBrix Remastered plugin for Flutter project. AdBrix is global Attribution and Analytics tool for Android and iOS app.
 version: 1.3.0
 author: peter@igaworks.com / jinukkr@gmial.com
-homepage: https://adbrix.io
+homepage: https://www.dfinery.io
 
 environment:
   sdk: ">=2.12.0 <3.0.0"

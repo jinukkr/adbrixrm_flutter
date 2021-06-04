@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:adbrixrm_flutter/adbrixrm.dart';
 import 'package:adbrixrm_flutter_example/commerceEvent.dart';
@@ -16,7 +17,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
-  String _deeferredDeeplink = "";
 
   int _currentIndex = 0;
   List _page = [userInfoView(), commerceView(), gameView()];
@@ -90,7 +90,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
     Timer(Duration(seconds: 5), () {
       getDeferredDeeplink();
-      getDeeplink();
+
+      // Only Android Needed
+      if (Platform.isAndroid) {
+        getDeeplink();
+      }
+
     });
   }
 
