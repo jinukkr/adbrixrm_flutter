@@ -1,3 +1,6 @@
+## 1.3.1
+* Add new SignUpChannel (SkTid, AppleId).
+
 ## 1.3.0
 * Ci (Customer Identifier) API Updated.
 
