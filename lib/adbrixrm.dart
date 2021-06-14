@@ -482,6 +482,16 @@ class AdBrixRm {
         {
           channelValue = 11;
         }
+        break;
+      case "SkTid":
+        {
+          channelValue = 12;
+        }
+        break;
+      case "AppleId" :
+        {
+          channelValue = 13;
+        }
     }
 
     if (attr != null) {
@@ -983,5 +993,7 @@ enum AdBrixSignUpChannel {
   QQ,
   WeChat,
   UserId,
-  ETC
+  ETC,
+  SkTid,
+  AppleId
 }
